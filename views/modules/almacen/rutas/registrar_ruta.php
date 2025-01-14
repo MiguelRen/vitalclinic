@@ -51,5 +51,5 @@
     </div>
 </div>
 
-<script src="http://192.168.0.164/vitalclinic/views/assets/js/api.js"></script>
-<script src="http://192.168.0.164/vitalclinic/views/assets/js/almacen/rutas/registrar_ruta.js" type="module"></script>
+<script src="http://localhost/vitalclinic/views/assets/js/api.js"></script>
+<script src="http://localhost/vitalclinic/views/assets/js/almacen/rutas/registrar_ruta.js" type="module"></script>

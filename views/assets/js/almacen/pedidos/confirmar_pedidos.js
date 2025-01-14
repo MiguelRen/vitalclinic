@@ -4,37 +4,41 @@ $fragment = d.createDocumentFragment(),
 $body_table_pedidos = d.querySelector("#body_table_pedidos"),
 $body_table_pedidos_d_r_e = d.querySelector("#body_table_pedidos_d_r_e");
 
+
+
+
 const mostrar_datos_tabla_pedidos = async(data) => {
 
-  //Enlazamos el template creado en el HTML
-  const $template_body_table_pedidos = d.querySelector('#template_body_table_pedidos').content;
-
-
-  if(data.length > 0){
-      
-      data.forEach(element => {
-          //Insertamos los datos en el template
-          $template_body_table_pedidos.querySelector('.n_pedido').textContent = element.numero_pedido;
-          $template_body_table_pedidos.querySelector('.ruta').textContent = element.nombre_ruta;
-          $template_body_table_pedidos.querySelector('.c_unidades').textContent = element.cantidad_unidades;
-          $template_body_table_pedidos.querySelector('.fecha_entrega').textContent = element.fecha;
-          $template_body_table_pedidos.querySelector('.entregador_por').textContent = `${element.nombre_distribuidor} ${element.apellido_distribuidor}`;
-          //guardamos una copia de la estrutura actual del template en la variable $node
-          let $clone = $template_body_table_pedidos.cloneNode(true);
-          //Guardamos el nodo en el fragment
-          $fragment.append($clone);
-      });
-
-      // //Limpiamos la lista
-      $body_table_pedidos.innerHTML = "";
-      //Insertamos el fragment en la lista
-      $body_table_pedidos.append($fragment);
-  }else{  
-      $body_table_pedidos.innerHTML = "";
+    //Enlazamos el template creado en el HTML
+    const $template_body_table_pedidos = d.querySelector('#template_body_table_pedidos').content;
+  
+  
+    if(data.length > 0){
+        
+        data.forEach(element => {
+            //Insertamos los datos en el template
+            $template_body_table_pedidos.querySelector('.n_pedido').textContent = element.numero_pedido;
+            $template_body_table_pedidos.querySelector('.ruta').textContent = element.nombre_ruta;
+            $template_body_table_pedidos.querySelector('.c_unidades').textContent = element.cantidad_unidades;
+            $template_body_table_pedidos.querySelector('.fecha_entrega').textContent = element.fecha;
+            $template_body_table_pedidos.querySelector('.entregador_por').textContent = `${element.nombre_distribuidor} ${element.apellido_distribuidor}`;
+            //guardamos una copia de la estrutura actual del template en la variable $node
+            let $clone = $template_body_table_pedidos.cloneNode(true);
+            //Guardamos el nodo en el fragment
+            $fragment.append($clone);
+        });
+  
+        // //Limpiamos la lista
+        $body_table_pedidos.innerHTML = "";
+        //Insertamos el fragment en la lista
+        $body_table_pedidos.append($fragment);
+    }else{  
+        $body_table_pedidos.innerHTML = "";
+    }
   }
-}
 
-const mostrar_datos_tabla_pedidos_d_r_e = async(data) => {
+
+  const mostrar_datos_tabla_pedidos_d_r_e = async(data) => {
     console.log(data)
   //Enlazamos el template creado en el HTML
   const $template_body_table_pedidos_d_r_e = d.querySelector('#template_body_table_pedidos_d_r_e').content;
@@ -72,11 +76,13 @@ const mostrar_datos_tabla_pedidos_d_r_e = async(data) => {
   }
 }
 
+
+
 const extraer_datos_pedido = async(form_data) => {
   try {
       const data_pedido = await app('http://localhost/vitalclinic/controllers/almacen/pedidos/pedidos.php?consultar_pedido=1','POST',form_data);
       if(data_pedido.data.length > 0){  
-        // console.log(data_pedido.data[0].tabla_pedidos_d_r_e)
+        
         mostrar_datos_tabla_pedidos([data_pedido.data[0].tabla_pedidos]);
         mostrar_datos_tabla_pedidos_d_r_e(data_pedido.data[0].tabla_pedidos_d_r_e)
       }else{
@@ -87,10 +93,14 @@ const extraer_datos_pedido = async(form_data) => {
   }
 }
 
+
+
 d.addEventListener('submit', async e=> {
     e.preventDefault();
+console.log(e);
 
     const numero_pedido = e.target.cod_pedido.value;
+console.log(numero_pedido);
 
     if(numero_pedido === ""){
         alert('Ingrese el número del pedido');
@@ -99,6 +109,7 @@ d.addEventListener('submit', async e=> {
 
     const form_data = new FormData();
     form_data.append('numero_pedido', numero_pedido);
-
+   
     await extraer_datos_pedido(form_data);
 })
+

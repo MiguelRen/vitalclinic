@@ -110,6 +110,6 @@
     </tr>
 </template>
 
-<script src="http://192.168.0.164/vitalclinic/views/assets/js/api.js"></script>
-<script src="http://192.168.0.164/vitalclinic/views/assets/js/common_services/users.js"></script>
-<script src="http://192.168.0.164/vitalclinic/views/assets/js/almacen/pedidos/modificar_pedido.js" type="module"></script>
+<script src="http://localhost/vitalclinic/views/assets/js/api.js"></script>
+<script src="http://localhost/vitalclinic/views/assets/js/common_services/users.js"></script>
+<script src="http://localhost/vitalclinic/views/assets/js/almacen/pedidos/modificar_pedido.js" type="module"></script>

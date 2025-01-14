@@ -60,7 +60,7 @@ const mostrar_rutas = (data_rutas) => {
 
 const extraer_data_rutas = async () => {
     try {
-        const data_rutas = await app('http://192.168.0.164/vitalclinic/controllers/almacen/rutas/rutas.php?extraer_rutas=1');
+        const data_rutas = await app('http://localhost/vitalclinic/controllers/almacen/rutas/rutas.php?extraer_rutas=1');
         mostrar_rutas(data_rutas)
     } catch (error) {
         console.log(error)
@@ -132,7 +132,7 @@ is_loader=true;
 if(is_loader)$loader.classList.remove("hidden");  
 
 try {
-    const res = await app('http://192.168.0.164/vitalclinic/controllers/almacen/pedidos/pedidos.php?registrar_pedido=1','POST',form_data);
+    const res = await app('http://localhost/vitalclinic/controllers/almacen/pedidos/pedidos.php?registrar_pedido=1','POST',form_data);
     if(res.data.length > 0){
 	      is_loader = false; 
         if(!is_loader)$loader.classList.add("hidden");      
@@ -150,6 +150,7 @@ try {
     console.log(error)
   }
 }
+
 
 const eliminar_despachador_tabla = (id_despachador) => {
   let index = null;

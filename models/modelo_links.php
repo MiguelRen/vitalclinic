@@ -29,6 +29,7 @@
             "mejor_rechequeador" => "almacen/estadisticas/mejor_rechequeador",
             "pedidos_por_despachador" => "almacen/estadisticas/pedidos_por_despachador",
             "registrar_articulos" => "deposito/articulos/registro_articulos",    
+            "confirmar_pedido"    => "almacen/pedidos/confirmar_pedido" , 
  ];
 
         public function checkLinkExistence($name_link){

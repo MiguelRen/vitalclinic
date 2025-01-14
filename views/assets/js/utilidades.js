@@ -38,7 +38,7 @@ const utilidades = () => {
         return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
     };
 
-    const prefixUrlBackend = 'http://192.168.0.164'
+    const prefixUrlBackend = 'http://localhost'
 
 
     return {
