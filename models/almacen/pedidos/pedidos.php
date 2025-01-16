@@ -375,4 +375,7 @@
                 return [];
             }
         }
+        public function confirmar_pedidos( $numero_pedido = "" ){
+            
+        }
     }
