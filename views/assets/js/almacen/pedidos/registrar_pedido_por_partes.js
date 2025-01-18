@@ -94,7 +94,11 @@ const get_info = async () =>{
   is_loader = false;
   if(!is_loader) $loader.classList.add("hidden");
   mostrar_empleados(promises[0].value)
-  console.log(is_loader)
+
+  
+  console.log(is_loader);
+
+console.log(mostrar_empleados(promises[0].value));
 
 
 }

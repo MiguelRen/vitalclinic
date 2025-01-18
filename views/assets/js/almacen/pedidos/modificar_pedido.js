@@ -91,7 +91,7 @@ const extraer_datos_pedido = async(form_data) => {
     data_partes_pedido = [];
 
     try {
-        const data_pedido = await app('http://192.168.0.164/vitalclinic/controllers/almacen/pedidos/pedidos.php?extraer_data_pedido=1','POST',form_data);
+        const data_pedido = await app('http://localhost/vitalclinic/controllers/almacen/pedidos/pedidos.php?extraer_data_pedido=1','POST',form_data);
         if(data_pedido.data.length > 0){
             format_data(data_pedido.data[0].partes_pedido);
             mostrar_datos_tabla(data_partes_pedido);
@@ -146,7 +146,7 @@ const getDataForm = async () => {
 
 const modificar_pedido = async (form_data) => {
     try {
-        const res = await app('http://192.168.0.164/vitalclinic/controllers/almacen/pedidos/pedidos.php?modificar_pedido=1','POST',form_data);
+        const res = await app('http://localhost/vitalclinic/controllers/almacen/pedidos/pedidos.php?modificar_pedido=1','POST',form_data);
         if(res.data.length > 0){
             alert('Modificación del pedido exitoso');
             limpiarformmulario();

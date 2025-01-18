@@ -4,7 +4,10 @@ const d = document,
   $body_table_pedidos = d.querySelector("#body_table_pedidos"),
   $body_table_pedidos_d_r_e = d.querySelector("#body_table_pedidos_d_r_e");
 
-const confirm_button = d.getElementById("confirm_b");
+const buscar_button = d.getElementById("buscar_b");
+const confirm_table = d.getElementById("table");
+console.log(buscar_button);
+
 
 const mostrar_datos_tabla_pedidos = async (data) => {
   //Enlazamos el template creado en el HTML
@@ -119,24 +122,6 @@ const extraer_datos_pedido = async (form_data) => {
   }
 };
 
-d.addEventListener("submit", async (e) => {
-  e.preventDefault();
-  console.log(e);
-
-  const numero_pedido = e.target.cod_pedido.value;
-  console.log(numero_pedido);
-
-  if (numero_pedido === "") {
-    alert("Ingrese el número del pedido");
-    return;
-  }
-
-  const form_data = new FormData();
-  form_data.append("numero_pedido", numero_pedido);
-
-  await extraer_datos_pedido(form_data);
-});
-
 const confirmar_pedido = async (pedido_num) => {
   try {
     const result = await app(
@@ -154,7 +139,40 @@ const confirmar_pedido = async (pedido_num) => {
   }
 };
 
-confirm_button.addEventListener("click", (e) => {
+buscar_button.addEventListener("click", async (e) => {
   e.preventDefault();
-  const data = getElementById("cod_pedido").value;
+
+  console.log(e);
+
+  const numero_pedido = e.target.cod_pedido.value;
+  console.log(numero_pedido);
+
+  if (numero_pedido === "") {
+    alert("Ingrese el número del pedido");
+    return;
+  }
+
+  const form_data = new FormData();
+  form_data.append("numero_pedido", numero_pedido);
+
+  await extraer_datos_pedido(form_data);
+});
+
+
+confirm_table.addEventListener("click", (e) => {
+  try {
+    e.preventDefault();
+
+
+    confirm_button = confirm_table.getElementById("confirm_b");
+    console.log(confirm_button);
+    
+    const data = getElementById("cod_pedido").value;
+    console.log(data);
+    
+    confirmar_pedido(data);
+  } catch (error) {
+    throw new Error ("Confirm Problems", error.message );
+  }
+
 });

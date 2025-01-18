@@ -33,7 +33,7 @@ const common_users = () => {
         console.log(order, departamento)
     
         try {
-            const data_empleados = await app('http://192.168.0.164/vitalclinic/controllers/users/empleados.php?extraer_empleados2=1','POST',formData);
+            const data_empleados = await app('http://localhost/vitalclinic/controllers/users/empleados.php?extraer_empleados2=1','POST',formData);
             return data_empleados;
         } catch (error) {
             console.log(error)

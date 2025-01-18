@@ -25,7 +25,7 @@ $acceso = $control_privilegios->verificar_privilegios($privilegio);
                 </label>
 
                 <label for="" class="w-full relative px-6">
-                    <input type="submit" value="Buscar"
+                    <input type="submit" value="Buscar" id="buscar_b"
                         class="w-full border-2 border-gray-300 rounded-md px-6 py-2 mt-3 mb-2 font-extralight text-white text-base font-medium focus:outline-none cursor-pointer bg-blue-600">
                 </label>
             </form>
@@ -33,7 +33,7 @@ $acceso = $control_privilegios->verificar_privilegios($privilegio);
 
     </div>
     <div class="md:w-[90%] lg-[w-80%] xl:w-[60%] bg-gray-100 h-fit mx-auto">
-                <table class="w-full table-auto border-separate border border-slate-400">
+                <table id="table" class="w-full table-auto border-separate border border-slate-400">
                     <thead>
                         <tr>
                             <th class="border-2 border-black-500 text-white bg-gray-400">N° Pedido</th>
@@ -94,5 +94,5 @@ $acceso = $control_privilegios->verificar_privilegios($privilegio);
 </div>
 <div>
 
-<script src="http://localhost/vitalclinic/views/assets/js/api.js"></script>
-<script src="http://localhost/vitalclinic/views/assets/js/almacen/pedidos/confirmar_pedidos.js" type="module"></script>
+<script type="module" src="http://localhost/vitalclinic/views/assets/js/api.js"></script>
+<script type="module" src="http://localhost/vitalclinic/views/assets/js/almacen/pedidos/confirmar_pedidos.js" type="module"></script>
