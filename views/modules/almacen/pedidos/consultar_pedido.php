@@ -83,5 +83,5 @@ $acceso = $control_privilegios->verificar_privilegios($privilegio);
 
 
 
-<script src="http://localhost/vitalclinic/views/assets/js/api.js"></script>
-<script src="http://localhost/vitalclinic/views/assets/js/almacen/pedidos/consultar_pedido.js" type="module"></script>
+<script type="module" src="http://localhost/vitalclinic/views/assets/js/api.js"></script>
+<script type="module" src="http://localhost/vitalclinic/views/assets/js/almacen/pedidos/consultar_pedido.js" type="module"></script>

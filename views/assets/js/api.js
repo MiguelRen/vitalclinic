@@ -1,4 +1,4 @@
- async function app(url, metodo = 'GET', datos = null) {
+ export default async function app(url, metodo = 'GET', datos = null) {
     const opciones = {
         method: metodo,
     };
@@ -22,5 +22,3 @@
     }
 }
 
-
-export default {app};   

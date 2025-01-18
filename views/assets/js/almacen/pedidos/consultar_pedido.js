@@ -89,7 +89,8 @@ const extraer_datos_pedido = async(form_data) => {
 
 d.addEventListener('submit', async e=> {
     e.preventDefault();
-
+    alert(e.target);
+    
     const numero_pedido = e.target.cod_pedido.value;
 
     if(numero_pedido === ""){

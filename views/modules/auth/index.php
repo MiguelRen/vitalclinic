@@ -46,6 +46,6 @@
   </div>
 </div>
 
-<script src="http://localhost/vitalclinic/views/assets/js/utilidades.js"></script>
-<script src="http://localhost/vitalclinic/views/assets/js/api.js"></script>
-<script src="http://localhost/vitalclinic/views/assets/js/auth.js" type="module"></script>
+<script type="module" src="http://localhost/vitalclinic/views/assets/js/utilidades.js"></script>
+<script type="module" src="http://localhost/vitalclinic/views/assets/js/api.js"></script>
+<script type="module" src="http://localhost/vitalclinic/views/assets/js/auth.js" type="module"></script>
