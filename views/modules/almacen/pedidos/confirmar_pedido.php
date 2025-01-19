@@ -33,7 +33,7 @@ $acceso = $control_privilegios->verificar_privilegios($privilegio);
 
     </div>
     <div class="md:w-[90%] lg-[w-80%] xl:w-[60%] bg-gray-100 h-fit mx-auto">
-                <table id="table" class="w-full table-auto border-separate border border-slate-400">
+                <table id="table_1" class="w-full table-auto border-separate border border-slate-400">
                     <thead>
                         <tr>
                             <th class="border-2 border-black-500 text-white bg-gray-400">N° Pedido</th>
@@ -48,7 +48,7 @@ $acceso = $control_privilegios->verificar_privilegios($privilegio);
             </div>
     
             <div class="md:w-[90%]  xl:w-[60%] bg-gray-100 h-fit mx-auto">
-                <table class="w-full table-auto border-separate border border-slate-400">
+                <table id="table_2" class="w-full table-auto border-separate border border-slate-400">
                     <thead>
                         <tr>
                             <th class="border-2 border-black-500 text-white bg-gray-400">N° Parte</th>
@@ -84,7 +84,7 @@ $acceso = $control_privilegios->verificar_privilegios($privilegio);
             <td class="fecha_rechequeado border-2 border-black-500 text-black text-center"></td>
             <td class="fallas border-2 border-black-500 text-black text-center"></td>
            <td>
-               <button  id="confirm_b" class="w-full border-2 border-gray-300 rounded-md px-6 py-2 mt-3 mb-2 font-extralight text-white text-base font-medium focus:outline-none cursor-pointer bg-blue-600">Confirmar</button>
+               <button  id="confirm_b" class="confirm_b w-full border-2 border-gray-300 rounded-md px-6 py-2 mt-3 mb-2 font-extralight text-white text-base font-medium focus:outline-none cursor-pointer bg-blue-600">Confirmar</button>
            </td>
         </tr>
         

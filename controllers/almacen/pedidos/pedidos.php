@@ -44,6 +44,12 @@
             $data = $model -> consultar_pedido ($numero_pedido);
             return $data ;
         }
+
+        public function consult_confirm_pedido($numero_pedido =""){
+            $model = new PedidosModel();
+            $data = $model -> consulta_confirmar($numero_pedido);
+            return $data ;
+        }
     }
 
     if(isset($_GET['registrar_pedido'])){
@@ -185,10 +191,12 @@
             echo json_encode($response);
         }
     }
-    if(isset($_GET["confirmar_pedido"])){
-        $numero_pedido = $_POST['numeor_pedido'];
+    if(isset($_GET["consult_confirm_pedido"])){
+        print_r($_POST);
+        $numero_pedido = $_POST['numero_pedido'];
         $controller = new PedidosController();
-        $data = $controller ->confirmar_pedido($numero_pedido);
+        $data = $controller -> consult_confirm_pedido($numero_pedido);
+        print_r($data);
         if($data == true){
             $response = [
                 "data" => [$data] ,

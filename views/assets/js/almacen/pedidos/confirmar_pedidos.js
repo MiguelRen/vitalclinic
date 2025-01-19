@@ -5,9 +5,8 @@ const d = document,
   $body_table_pedidos_d_r_e = d.querySelector("#body_table_pedidos_d_r_e");
 
 const buscar_button = d.getElementById("buscar_b");
-const confirm_table = d.getElementById("table");
-console.log(buscar_button);
-
+const pedido_id_table = d.getElementById("table_1");
+const confirm_button_table = d.getElementById("table_2");
 
 const mostrar_datos_tabla_pedidos = async (data) => {
   //Enlazamos el template creado en el HTML
@@ -109,6 +108,8 @@ const extraer_datos_pedido = async (form_data) => {
       "POST",
       form_data
     );
+    console.log(data_pedido);
+
     if (data_pedido.data.length > 0) {
       mostrar_datos_tabla_pedidos([data_pedido.data[0].tabla_pedidos]);
       mostrar_datos_tabla_pedidos_d_r_e(
@@ -122,15 +123,18 @@ const extraer_datos_pedido = async (form_data) => {
   }
 };
 
-const confirmar_pedido = async (pedido_num) => {
+const extraer_datos_confirmar = async (pedido_num) => {
   try {
     const result = await app(
-      "http://localhost/vitalclinic/controllers/almacen/pedidos/pedidos.php?confirmar_pedido=1",
+      "http://localhost/vitalclinic/controllers/almacen/pedidos/pedidos.php?consult_confirm_pedido=1",
       "POST",
-      data
+      {
+        numero_pedido: pedido_num,
+      }
     );
     if (result.ok) {
-
+      const result  = await result.json()
+      console.log(result);
     } else {
       alert("Pedido no encontrado");
     }
@@ -142,37 +146,28 @@ const confirmar_pedido = async (pedido_num) => {
 buscar_button.addEventListener("click", async (e) => {
   e.preventDefault();
 
-  console.log(e);
-
-  const numero_pedido = e.target.cod_pedido.value;
-  console.log(numero_pedido);
+  const input_data = d.getElementById("cod_pedido");
+  const numero_pedido = input_data.value;
 
   if (numero_pedido === "") {
     alert("Ingrese el número del pedido");
     return;
   }
 
-  const form_data = new FormData();
-  form_data.append("numero_pedido", numero_pedido);
-
-  await extraer_datos_pedido(form_data);
+  await extraer_datos_confirmar(numero_pedido);
 });
 
-
-confirm_table.addEventListener("click", (e) => {
+confirm_button_table.addEventListener("click", (e) => {
   try {
-    e.preventDefault();
+    console.log(e.target);
 
+    if (e.target.matches("button.confirm_b")) {
 
-    confirm_button = confirm_table.getElementById("confirm_b");
-    console.log(confirm_button);
-    
-    const data = getElementById("cod_pedido").value;
-    console.log(data);
-    
-    confirmar_pedido(data);
+      const id_pedido = pedido_id_table.querySelector(".n_pedido").textContent;
+      
+      confirmar_pedido(id_pedido);
+    }
   } catch (error) {
-    throw new Error ("Confirm Problems", error.message );
+    throw new Error("Confirm Problems: ", error.message);
   }
-
 });
