@@ -132,6 +132,8 @@ const mostrar_datos_tabla = (datos) => {
 }
 
 const registrar_pedido = async (form_data) => {
+ 
+  
 is_loader=true;
 if(is_loader)$loader.classList.remove("hidden");  
 

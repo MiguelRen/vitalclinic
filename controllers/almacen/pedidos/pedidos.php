@@ -192,7 +192,7 @@
         }
     }
     if(isset($_GET["consult_confirm_pedido"])){
-        print_r($_POST);
+        print_r($_POST["numero_pedido"]);
         $numero_pedido = $_POST['numero_pedido'];
         $controller = new PedidosController();
         $data = $controller -> consult_confirm_pedido($numero_pedido);

@@ -32,22 +32,9 @@ $acceso = $control_privilegios->verificar_privilegios($privilegio);
         </div>
 
     </div>
-    <div class="md:w-[90%] lg-[w-80%] xl:w-[60%] bg-gray-100 h-fit mx-auto">
-                <table id="table_1" class="w-full table-auto border-separate border border-slate-400">
-                    <thead>
-                        <tr>
-                            <th class="border-2 border-black-500 text-white bg-gray-400">N° Pedido</th>
-                            <th class="border-2 border-black-500 text-white bg-gray-400">Ruta</th>
-                            <th class="border-2 border-black-500 text-white bg-gray-400">C. Unidades</th>
-                            <th class="border-2 border-black-500 text-white bg-gray-400">Fecha de entrega</th>
-                            <th class="border-2 border-black-500 text-white bg-gray-400">Entregado por</th>
-                        </tr>
-                    </thead>
-                    <tbody id="body_table_pedidos"></tbody>
-                </table>
-            </div>
+                        
     
-            <div class="md:w-[90%]  xl:w-[60%] bg-gray-100 h-fit mx-auto">
+            <div class="md:w-[90%]  xl:w-[60%] bg-gray-100 h-fit mx-auto mt-2">
                 <table id="table_2" class="w-full table-auto border-separate border border-slate-400">
                     <thead>
                         <tr>
@@ -64,16 +51,7 @@ $acceso = $control_privilegios->verificar_privilegios($privilegio);
             </div>
         </div>
     </div>
-    
-    <template id="template_body_table_pedidos">
-        <tr class="tr hover:bg-gray-200">
-            <td class="n_pedido border-2 border-black-500 text-black text-center"></td>
-            <td class="ruta border-2 border-black-500 text-black text-center"></td>
-            <td class="c_unidades border-2 border-black-500 text-black text-center"></td>
-            <td class="fecha_entrega border-2 border-black-500 text-black text-center"></td>
-            <td class="entregador_por border-2 border-black-500 text-black text-center"></td>
-        </tr>
-    </template>
+
     
     <template id="template_body_table_pedidos_d_r_e">
         <tr class="tr hover:bg-gray-200">

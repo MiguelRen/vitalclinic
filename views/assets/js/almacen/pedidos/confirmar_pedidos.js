@@ -108,7 +108,7 @@ const extraer_datos_pedido = async (form_data) => {
       "POST",
       form_data
     );
-    console.log(data_pedido);
+    
 
     if (data_pedido.data.length > 0) {
       mostrar_datos_tabla_pedidos([data_pedido.data[0].tabla_pedidos]);
@@ -123,15 +123,17 @@ const extraer_datos_pedido = async (form_data) => {
   }
 };
 
-const extraer_datos_confirmar = async (pedido_num) => {
+const extraer_datos_confirmar = async (form_data) => {
   try {
+    console.log(form_data.get("numero_pedido"));
+    
     const result = await app(
       "http://localhost/vitalclinic/controllers/almacen/pedidos/pedidos.php?consult_confirm_pedido=1",
       "POST",
-      {
-        numero_pedido: pedido_num,
-      }
+      form_data
     );
+    console.log(form_data);
+    
     if (result.ok) {
       const result  = await result.json()
       console.log(result);
@@ -139,22 +141,30 @@ const extraer_datos_confirmar = async (pedido_num) => {
       alert("Pedido no encontrado");
     }
   } catch (error) {
-    throw new Error("Confirm Error");
+    console.log(error
+      
+    );
+    
   }
 };
 
 buscar_button.addEventListener("click", async (e) => {
   e.preventDefault();
 
-  const input_data = d.getElementById("cod_pedido");
-  const numero_pedido = input_data.value;
+ 
+  const numero_pedido = d.querySelector("#cod_pedido").value;
+console.log(numero_pedido);
 
   if (numero_pedido === "") {
     alert("Ingrese el número del pedido");
     return;
   }
+  const form_data = new FormData()
+  form_data.append("numero_pedido" , numero_pedido);
+ 
+  
 
-  await extraer_datos_confirmar(numero_pedido);
+  await extraer_datos_confirmar(form_data);
 });
 
 confirm_button_table.addEventListener("click", (e) => {
