@@ -32,45 +32,51 @@ $acceso = $control_privilegios->verificar_privilegios($privilegio);
         </div>
 
     </div>
-                        
-    
-            <div class="md:w-[90%]  xl:w-[60%] bg-gray-100 h-fit mx-auto mt-2">
-                <table id="table_2" class="w-full table-auto border-separate border border-slate-400">
-                    <thead>
-                        <tr>
-                            <th class="border-2 border-black-500 text-white bg-gray-400">N° Parte</th>
-                            <th class="border-2 border-black-500 text-white bg-gray-400">Despachador</th>
-                            <th class="border-2 border-black-500 text-white bg-gray-400">Rechequeador</th>
-                            <th class="border-2 border-black-500 text-white bg-gray-400">Embalador</th>
-                            <th class="border-2 border-black-500 text-white bg-gray-400">Fecha Rechequeado</th>
-                            <th class="border-2 border-black-500 text-white bg-gray-400">C. de Fallas</th>
-                        </tr>
-                    </thead>
-                    <tbody id="body_table_pedidos_d_r_e"></tbody>
-                </table>
-            </div>
-        </div>
-    </div>
 
-    
-    <template id="template_body_table_pedidos_d_r_e">
-        <tr class="tr hover:bg-gray-200">
-            <td class="part border-2 border-black-500 text-black text-center"></td>
-            <td class="despachador border-2 border-black-500 text-black text-center"></td>
-            <td class="rechequeador border-2 border-black-500 text-black text-center"></td>
-            <td class="embalador border-2 border-black-500 text-black text-center"></td>
-            <td class="fecha_rechequeado border-2 border-black-500 text-black text-center"></td>
-            <td class="fallas border-2 border-black-500 text-black text-center"></td>
-           <td>
-               <button  id="confirm_b" class="confirm_b w-full border-2 border-gray-300 rounded-md px-6 py-2 mt-3 mb-2 font-extralight text-white text-base font-medium focus:outline-none cursor-pointer bg-blue-600">Confirmar</button>
-           </td>
-        </tr>
-        
-    </template>
-    
+
+    <div class="md:w-[90%]  xl:w-[60%] bg-gray-100 h-fit mx-auto mt-2">
+        <table id="table_2" class="w-full table-auto border-separate border border-slate-400">
+            <thead>
+                <tr>
+                <th  class="border-2 border-black-500 text-white bg-gray-400">Pedido</th>
+                <th  class="border-2 border-black-500 text-white bg-gray-400">id_despachador</th>
+                    <th class="border-2 border-black-500 text-white bg-gray-400">N° Parte</th>
+                    <th class="border-2 border-black-500 text-white bg-gray-400">Nombre</th>
+                    <th class="border-2 border-black-500 text-white bg-gray-400">Apellido</th>
+                    <th class="border-2 border-black-500 text-white bg-gray-400">Fecha Entregado</th>
+                    <th class="border-2 border-black-500 text-white bg-gray-400">Fecha Terminado</th>
+
+                </tr>
+            </thead>
+            <tbody id="body_table_partes"></tbody>
+        </table>
+    </div>
+</div>
+</div>
+
+
+<template id="template_body_table_partes">
+    <tr class="tr hover:bg-gray-200">
+        <td class="num_pedido border-2 border-black-500 text-black text-center " ></td>
+
+        <td class="id_despachador border-2 border-black-500 text-black text-center " ></td>
+        <td class="num_parte border-2 border-black-500 text-black text-center"></td>
+        <td class="nombre border-2 border-black-500 text-black text-center"></td>
+        <td class="apellido border-2 border-black-500 text-black text-center"></td>
+        <td class="fecha_entregado border-2 border-black-500 text-black text-center"></td>
+        <td class="fecha_terminado border-2 border-black-500 text-black text-center"></td>
+        <td>
+            <button id="confirm_b"
+                class="confirm_b w-full border-2 border-gray-300 rounded-md px-6 py-2 mt-3 mb-2 font-extralight text-white text-base font-medium focus:outline-none cursor-pointer bg-blue-600">Confirmar</button>
+        </td>
+    </tr>
+
+</template>
+
 </div>
 </div>
 <div>
 
-<script type="module" src="http://localhost/vitalclinic/views/assets/js/api.js"></script>
-<script type="module" src="http://localhost/vitalclinic/views/assets/js/almacen/pedidos/confirmar_pedidos.js" type="module"></script>
+    <script type="module" src="http://localhost/vitalclinic/views/assets/js/api.js"></script>
+    <script type="module" src="http://localhost/vitalclinic/views/assets/js/almacen/pedidos/confirmar_pedidos.js"
+        type="module"></script>

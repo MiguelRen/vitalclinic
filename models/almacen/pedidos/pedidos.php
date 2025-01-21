@@ -298,6 +298,7 @@ class PedidosModel extends Connection
         }
     }
 
+
     public function consultar_pedido($numero_pedido = "")
     {
 
@@ -384,35 +385,78 @@ class PedidosModel extends Connection
             return [];
         }
     }
-    public function consulta_confirmar($pedido_distribuidor = "")
+
+    public function consulta_confirmar($numero_pedido = "")
     {
-        try {
-            if (!empty ($pedido_distribuidor)) {
+        if (empty($numero_pedido)) {
+            return ["data" => [], "error" => "No se ha ingresado un número de pedido"];
+        }
 
-                $sql = "SELECT 
-                    pedidos.numero_pedido,
-                    pedidos.fecha, pedidos_d_r_e.id_despachador,
-                    pedidos_d_r_e.fecha_confirmado 
-                    FROM pedidos 
-                    INNER JOIN pedidos_d_r_e 
-                    ON pedidos.id_pedido = pedidos_d_r_e.id_pedido 
-                    WHERE pedidos.numero_pedido = ?;";
+        $sql = "SELECT 
+            
+            empleados.nombre,
+            empleados.apellido,
+            pedidos.numero_pedido,
+            pedidos.fecha, 
+            pedidos_d_r_e.fecha_confirmado,
+            pedidos_d_r_e.id_despachador,
+            pedidos_d_r_e.id as id_parte 
+            FROM pedidos 
+            INNER JOIN pedidos_d_r_e ON pedidos_d_r_e.id_pedido = pedidos.id_pedido 
+            INNER JOIN empleados ON empleados.id = pedidos_d_r_e.id_despachador 
+            WHERE pedidos.numero_pedido = ? 
+            ORDER BY pedidos_d_r_e.id ASC";
 
-                $consulta = $this->conn->prepare($sql);
-                $consulta-> bindParam (1, $pedido_distribuidor,PDO::PARAM_STR); // Cambiado a bindParam()
-                $consulta->execute();
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("s", $numero_pedido);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $data = [];
+        while ($row = $result->fetch_assoc()) {
+            $data[] = $row;
+        }
+        
+        return $data;
+    }
     
-                $result = $consulta->fetch(PDO::FETCH_ASSOC);
-                
-                if ($result) {
-                    return $result; 
-                } else {
-                    throw new Exception("No se encontraron resultados para el pedido");
+    public function confirmar_pedido($id_parte = "")
+    {
+       
+        try {               
+            if (isset($id_parte)) {
+
+                $sql = "UPDATE
+                    pedidos_d_r_e 
+
+                    SET fecha_confirmado = NOW() 
+                    WHERE id = ?;";
+
+
+               // Preparar la consulta
+                $stmt = $this->conn->prepare($sql);
+
+
+                // Verificar si la preparación falló
+                if ($stmt === false) {
+                    throw new Exception("Error al preparar la consulta: " . $this->conn->error);
                 }
 
-               
+               // Vincular parámetros
+                $stmt->bind_param("s", $id_parte);
+                if (!$stmt->execute()) {
+                    throw new Exception("Error al ejecutar la consulta: " . $stmt->error);
+                }
+                
+                $result = $stmt->get_result();
+                $data = [$result];
+                while ($row = $result->fetch_assoc()) {
+                    $data[] = $row;
+                }
+        
+                // Devolver los datos
+                return ["data" => $data, "error" => null];  
             } else {
-                return new Exception("Empty Data");
+                return ["data" => [], "error" => "No se ha ingresado un número de pedido"];
             }
 
         } catch (\Throwable $th) {
