@@ -59,7 +59,7 @@ $acceso = $control_privilegios->verificar_privilegios($privilegio);
     <tr class="tr hover:bg-gray-200">
         <td class="num_pedido border-2 border-black-500 text-black text-center " ></td>
 
-        <td class="id_despachador border-2 border-black-500 text-black text-center " ></td>
+        <td class="id_despachador    border-2 border-black-500 text-black text-center " ></td>
         <td class="num_parte border-2 border-black-500 text-black text-center"></td>
         <td class="nombre border-2 border-black-500 text-black text-center"></td>
         <td class="apellido border-2 border-black-500 text-black text-center"></td>
