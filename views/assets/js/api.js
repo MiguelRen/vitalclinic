@@ -6,8 +6,7 @@
     if (datos) {
         opciones.body = datos;
     }
-    
-    console.log(opciones);
+
     try {
         const respuesta = await fetch(url, opciones);
         
