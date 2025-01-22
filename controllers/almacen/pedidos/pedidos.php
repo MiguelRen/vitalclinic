@@ -39,17 +39,17 @@
             $data = $model->consultar_pedido($numero_pedido);
             return $data;
         }
-        public function confirmar_pedido($id_parte =""){
-            print_r($id_parte);
-            $model = new PedidosModel();
-            $data = $model -> consultar_pedido ($id_parte);
-            return $data ;
-        }
-
+        
         public function consult_confirm_pedido($numero_pedido =""){
             
             $model = new PedidosModel();
             $data = $model -> consulta_confirmar($numero_pedido);
+            return $data ;
+        }
+        public function confirmar_pedido($id_parte =""){
+          
+            $model = new PedidosModel();
+            $data = $model -> confirmar_pedido($id_parte);
             return $data ;
         }
     }
@@ -225,8 +225,8 @@
         
         $controller = new PedidosController();
         $data = $controller->confirmar_pedido($id_parte);
-     print_r(($data));
-        if($data == true){
+
+        if($data ){
             $response = [
                 "data" => [$data] ,
                 "error" => [],

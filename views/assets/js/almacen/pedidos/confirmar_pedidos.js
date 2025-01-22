@@ -91,13 +91,19 @@ const confirmar_pedido = async (form_data) => {
       "POST",
       form_data
     );
-    console.log(response);
     
-    if (response.data.length > 0) {
-      console.log(response.data);
+    
+    if (response.data[0].data == true) {
       
-      
+      const numero_pedido = d.querySelector("#cod_pedido").value;
+      const pedido = new FormData();
+  pedido.append("numero_pedido", numero_pedido); 
+      await extraer_datos_confirmar(pedido);
+
       return alert("Pedido Confirmado");
+    }else{
+      
+      alert(response.error)
     }
     
   } catch (error) {

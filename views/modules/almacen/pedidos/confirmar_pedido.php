@@ -45,7 +45,8 @@ $acceso = $control_privilegios->verificar_privilegios($privilegio);
                     <th class="border-2 border-black-500 text-white bg-gray-400">Apellido</th>
                     <th class="border-2 border-black-500 text-white bg-gray-400">Fecha Entregado</th>
                     <th class="border-2 border-black-500 text-white bg-gray-400">Fecha Terminado</th>
-
+                    <th class="border-2 border-black-500 text-white bg-gray-400"></th>
+                  
                 </tr>
             </thead>
             <tbody id="body_table_partes"></tbody>

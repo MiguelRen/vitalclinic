@@ -447,14 +447,11 @@ class PedidosModel extends Connection
                     throw new Exception("Error al ejecutar la consulta: " . $stmt->error);
                 }
                 
-                $result = $stmt->get_result();
-                $data = [$result];
-                while ($row = $result->fetch_assoc()) {
-                    $data[] = $row;
-                }
+                
+              
         
                 // Devolver los datos
-                return ["data" => $data, "error" => null];  
+                return ["data" =>true, "error" => null];  
             } else {
                 return ["data" => [], "error" => "No se ha ingresado un número de pedido"];
             }
