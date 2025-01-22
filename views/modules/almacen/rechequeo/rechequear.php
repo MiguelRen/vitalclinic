@@ -96,5 +96,5 @@
     </label>
 </template>
 
-<script src="http://192.168.0.164/vitalclinic/views/assets/js/api.js"></script>
-<script src="http://192.168.0.164/vitalclinic/views/assets/js/almacen/rechequeo/rechequear.js" type="module"></script>
+<script type="module" src="http://localhost/vitalclinic/views/assets/js/api.js"></script>
+<script type="module" src="http://localhost/vitalclinic/views/assets/js/almacen/rechequeo/rechequear.js" ></script>

@@ -28,7 +28,7 @@ const registrar_pareja_rechequeadora = async (form_data) => {
 
   console.log('kak')
   try {
-    const res = await app('http://192.168.0.164/vitalclinic/controllers/almacen/rechequeo/mesa_rechequeo.php?registrar_pareja_rechequeadora=1','POST',form_data);
+    const res = await app('http://localhost/vitalclinic/controllers/almacen/rechequeo/mesa_rechequeo.php?registrar_pareja_rechequeadora=1','POST',form_data);
     if(res.data.length > 0){
         const d =  await extraer_data_mesa_rechequeo();
         alert('Modificación exitosa');
@@ -174,7 +174,7 @@ const mostrar_turnos = (data) => {
 const consultar_turnos = async () => {
  
   try {
-    const res = await app('http://192.168.0.164/vitalclinic/controllers/almacen/rechequeo/mesa_rechequeo.php?consultar_turnos=1');
+    const res = await app('http://localhost/vitalclinic/controllers/almacen/rechequeo/mesa_rechequeo.php?consultar_turnos=1');
     if(res.data.length > 0){
       turnos = res.data; 
       return turnos
@@ -189,7 +189,7 @@ const consultar_turnos = async () => {
 
 const consultar_data_rechequeadores_embaladores = async () => {
   try {
-    const res = await app('http://192.168.0.164/vitalclinic/controllers/almacen/rechequeo/mesa_rechequeo.php?consultar_data_rechequeadores_embaladores=1');
+    const res = await app('http://localhost/vitalclinic/controllers/almacen/rechequeo/mesa_rechequeo.php?consultar_data_rechequeadores_embaladores=1');
     if(res.data.length > 0){
        data_embaladores = res.data[0].data_embaladores;
        data_rechequeadores = res.data[0].data_rechequeadores;
@@ -207,7 +207,7 @@ const consultar_data_rechequeadores_embaladores = async () => {
 
 const extraer_data_mesa_rechequeo = async () => {
   try {
-    const res = await app('http://192.168.0.164/vitalclinic/controllers/almacen/rechequeo/mesa_rechequeo.php?consultar_parejas_rechequeadoras=1');
+    const res = await app('http://localhost/vitalclinic/controllers/almacen/rechequeo/mesa_rechequeo.php?consultar_parejas_rechequeadoras=1');
     if(res.data.length > 0){
        //ordenar_data_mesas_rechequeo(res.data[0])
        return res.data[0]
@@ -274,7 +274,7 @@ const crear_turno = async (data_form) => {
   if(is_loader) $loader.classList.remove("hidden");
 
   try {
-    const res = await app('http://192.168.0.164/vitalclinic/controllers/almacen/rechequeo/mesa_rechequeo.php?crear_turno=1','POST',data_form);
+    const res = await app('http://localhost/vitalclinic/controllers/almacen/rechequeo/mesa_rechequeo.php?crear_turno=1','POST',data_form);
     if(res.data.length > 0){
       is_loader = false; 
       if(!is_loader)$loader.classList.add("hidden");   
@@ -297,7 +297,7 @@ const eliminar_turno = async (data_form) => {
   if(is_loader) $loader.classList.remove("hidden");
 
   try {
-    const res = await app('http://192.168.0.164/vitalclinic/controllers/almacen/rechequeo/mesa_rechequeo.php?eliminar_turno=1','POST',data_form);
+    const res = await app('http://localhost/vitalclinic/controllers/almacen/rechequeo/mesa_rechequeo.php?eliminar_turno=1','POST',data_form);
     if(res.data.length > 0){
       is_loader = false; 
       if(!is_loader)$loader.classList.add("hidden");   

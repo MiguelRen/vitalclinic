@@ -16,7 +16,7 @@ let is_loader = false;
 
 const extraer_embalador_asignado = async () => {
     try {
-        const data = await app('http://192.168.0.164/vitalclinic/controllers/almacen/rechequeo/rechequear.php?extraer_embalador_asignado=1');
+        const data = await app('http://localhost/vitalclinic/controllers/almacen/rechequeo/rechequear.php?extraer_embalador_asignado=1');
         embaladorAsignado = data[0];
         console.log(embaladorAsignado)
     } catch (error) {
@@ -55,7 +55,7 @@ const extraer_data_empleados = async () => {
     formData.append('order',1);
 
     try {
-        const data_empleados = await app('http://192.168.0.164/vitalclinic/controllers/users/empleados.php?extraer_empleados=1','POST',formData);
+        const data_empleados = await app('http://localhost/vitalclinic/controllers/users/empleados.php?extraer_empleados=1','POST',formData);
         mostrar_empleados(data_empleados)
     } catch (error) {
         console.log(error)
@@ -66,7 +66,7 @@ const rechequear_pedido = async(form_data) => {
 	is_loader = true;
     if(is_loader) $loader.classList.remove("hidden");   
     try {
-        const res = await app('http://192.168.0.164/vitalclinic/controllers/almacen/rechequeo/rechequear.php?rechequear=1','POST',form_data);
+        const res = await app('http://localhost/vitalclinic/controllers/almacen/rechequeo/rechequear.php?rechequear=1','POST',form_data);
         if(res.data.length > 0){
             is_loader = true;
             if(is_loader) $loader.classList.add("hidden");           
@@ -95,7 +95,7 @@ const extraer_partes_pedidos = async(form_data) => {
 is_loader = true;
     if(is_loader) $loader.classList.remove("hidden");   
  try {
-        const data_partes_pedido = await app('http://192.168.0.164/vitalclinic/controllers/almacen/rechequeo/rechequear.php?extraer_partes_pedido=1','POST',form_data);
+        const data_partes_pedido = await app('http://localhost/vitalclinic/controllers/almacen/rechequeo/rechequear.php?extraer_partes_pedido=1','POST',form_data);
 	is_loader=false;
         $loader.classList.add("hidden");        
  return data_partes_pedido;

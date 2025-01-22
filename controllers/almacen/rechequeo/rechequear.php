@@ -28,7 +28,13 @@ class RechequearPedidoController{
         return $data;
     }
 
-    public function consultar_despachadores_pedidos($num_pedido=""){
+    // public function consultar_despachadores_pedidos($num_pedido=""){
+    //     $model = new RechequearPedidoModel();
+    //     $data = $model->consultar_pedido($num_pedido);
+    //     return $data;
+    // }
+
+    public function consultar_data_pedidos($num_pedido=""){
         $model = new RechequearPedidoModel();
         $data = $model->consultar_pedido($num_pedido);
         return $data;
@@ -80,7 +86,7 @@ if(isset($_GET['consultar_pedido'])){
     $cod_pedido = $_POST['numero_pedido'];
     
     $controller = new RechequearPedidoController();
-    $data = $controller->consultar_despachadores_pedidos($cod_pedido);
+    $data = $controller->consultar_data_pedidos($cod_pedido);
     if(count($data)>0){
         $response = [
             "data" => [$data],

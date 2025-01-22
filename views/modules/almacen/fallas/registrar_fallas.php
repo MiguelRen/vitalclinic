@@ -41,6 +41,12 @@
             <div class="w-full h-fit">
                 <form class="flex flex-col items-center py-4 h-fit border-2 border-gray-200 rounded-md bg-blue-500 registrar">
 
+                <label for="despachador" class="w-full relative px-6">
+                        <p class="text-white">Rechequeador:</p>
+                        <select name="rechequeador" id="rechequeador" class="w-full border-2 border-gray-300 rounded-md p-2 pt-2 my-1 font-extralight text-black-500 font-medium text-base focus:outline-none"></select>
+                    </label>
+
+
                     <label for="despachador" class="w-full relative px-6">
                         <p class="text-white">Despachador:</p>
                         <select name="despachador" id="despachador" class="w-full border-2 border-gray-300 rounded-md p-2 pt-2 my-1 font-extralight text-black-500 font-medium text-base focus:outline-none"></select>
@@ -68,5 +74,5 @@
     </div>
 </div>
 
-<script src="http://localhost/vitalclinic/views/assets/js/api.js"></script>
-<script src="http://localhost/vitalclinic/views/assets/js/almacen/fallas/fallas_pedidos.js" type="module"></script>
+<script type="module" src="http://localhost/vitalclinic/views/assets/js/api.js"></script>
+<script type="module" src="http://localhost/vitalclinic/views/assets/js/almacen/fallas/fallas_pedidos.js"></script>

@@ -36,7 +36,7 @@ const mostrar_motivos = (data_motivos) => {
 
 const registrar_fallas = async(form_data) => {
     try {
-        const data = await app('http://192.168.0.164/vitalclinic/controllers/almacen/fallas/fallas_pedidos.php?registrar_fallas=1','POST',form_data);
+        const data = await app('http://localhost/vitalclinic/controllers/almacen/fallas/fallas_pedidos.php?registrar_fallas=1','POST',form_data);
         if(data.data.length > 0){  
             alert('Registro de falla exitoso');
             $despachador.selectedIndex = 0;
@@ -52,7 +52,7 @@ const registrar_fallas = async(form_data) => {
 
 const extraer_data_motivo_fallas = async () => {
     try {
-        const data_motivo_fallas = await app('http://192.168.0.164/vitalclinic/controllers/almacen/fallas/fallas_pedidos.php?extraer_motivos=1');
+        const data_motivo_fallas = await app('http://localhost/vitalclinic/controllers/almacen/fallas/fallas_pedidos.php?extraer_motivos=1');
         mostrar_motivos(data_motivo_fallas)
     } catch (error) {
         console.log(error)
@@ -74,12 +74,14 @@ const formatDataSelect = (data) => {
     }
 
     mostrar_despachadores(dataFallas);
+    mostrar_rechequeadores(dataFallas);
+    
 }
 
 const extraer_datos_pedido = async(form_data) => {
 
     try {
-        const data_pedido = await app('http://192.168.0.164/vitalclinic/controllers/almacen/rechequeo/rechequear.php?consultar_pedido=1','POST',form_data);
+        const data_pedido = await app('http://localhost/vitalclinic/controllers/almacen/rechequeo/rechequear.php?consultar_pedido=1','POST',form_data);
         if(data_pedido.data.length > 0){  
          // console.log(data_pedido.data[0].tabla_pedidos_d_r_e)
           dataFallas = [];
@@ -91,9 +93,33 @@ const extraer_datos_pedido = async(form_data) => {
         console.log(error)
     }
   }
+
+
+
+  const mostrar_rechequeadores = async (data_rechequeadores) => {
+    //Mostramos los datos de los empleados
+    asignar_valores_select(
+        { 
+            data: data_rechequeadores,
+            titulo: "Seleccionar Rechequeadores",
+            input: $rechequeador,
+            nombre_opciones : {
+                id : "id",
+                nombre: "nombre"  
+            }
+        }
+    );
+};
+
   
 d.addEventListener('DOMContentLoaded', async e => {
-    await extraer_data_motivo_fallas();
+    try {
+        await extraer_data_motivo_fallas();
+        
+        
+    } catch (error) {
+        console.log(error);
+    }
 });
 
 
