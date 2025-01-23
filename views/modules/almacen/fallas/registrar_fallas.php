@@ -28,10 +28,7 @@ $acceso = $control_privilegios->verificar_privilegios($privilegio);
                         class="w-full border-2 border-gray-300 rounded-md my-1 font-extralight text-black-500 font-medium text-base focus:outline-none">
                 </label>
 
-                <label for="despachador" class="w-full relative px-6">
-                    <p class="text-white">Rechequeador:</p>
-                    <select name="rechequeador" id="rechequeador" class="w-full border-2 border-gray-300 rounded-md p-2 pt-2 my-1 font-extralight text-black-500 font-medium text-base focus:outline-none"></select>
-                </label>
+                
                 <label for="" class="w-fit pr-4">
                     <input
                         type="submit"
