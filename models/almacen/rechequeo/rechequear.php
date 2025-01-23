@@ -235,20 +235,13 @@ class RechequearPedidoModel extends Connection
         $data_tabla_pedidos = array();
         $data_tabla_pedidos_d_r_e = array();
 
-        $sql = "SELECT
-         
-        pedidos_d_r_e.id_pedido as num_pedido,
-        pedidos_d_r_e.id_despachador ,
-        pedidos_d_r_e.id_rechequeador,
-        
-        nombre as nombre_distribuidor,
-        apellido as apellido_distribuidor,
 
+        $sql = "SELECT
+        id_pedido
+        
         FROM pedidos
-        INNER JOIN accounts on pedidos.distribuidor_pedidos=accounts.id_account
-        INNER JOIN rutas on pedidos.id_ruta=rutas.id
-        INNER JOIN empleados on accounts.id_empleado=empleados.id
-        WHERE numero_pedido = '$numero_pedido'";
+       
+        WHERE numero_pedido = '$numero_pedido';";
 
         $result = $this->conn->query($sql);
         // Devolver los resultados como un array JSON
