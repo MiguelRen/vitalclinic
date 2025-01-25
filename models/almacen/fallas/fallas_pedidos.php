@@ -1,4 +1,6 @@
 <?php
+
+use LDAP\Result;
     require_once '../../../connection/connection.php';
 
 
@@ -207,5 +209,37 @@
             //       echo "Transacción fallida: " . $e->getMessage();
             //       return false;
             //   }
+        }
+
+        public function confirmar_falla_p($id_pedido = "",$motivo ="",$descripcion=""){
+            
+
+            $sqL_despachador = " SELECT 
+            id_despachador 
+            FROM pedidos_d_r_e
+            Where id_pedido = ? ;";
+
+            $stmt1 = $this->conn-> prepare ($sqL_despachador);
+            $stmt1->bind_param("s",$id_pedido);
+            
+            $id_despachador = $stmt1->execute(); 
+            
+            print_r($id_despachador);
+
+
+
+            $sql_registro = "INSERT INTO fallas_despachador
+            (despachador,id_pedido_d_r_e,motivo, descripcion)
+            values
+            (?,?,?,?);";
+
+            $stmt2 = $this->conn->prepare($sql_registro);
+            $stmt2->bind_param("s",$id_despachador);
+            $stmt2->bind_param("s",$id_pedido_d_r_e);
+            $stmt2->bind_param("s",$motivo);
+            $stmt2->bind_param("s",$descripcion);
+
+            $result = $stmt2->execute();
+            return $result;
         }
     }

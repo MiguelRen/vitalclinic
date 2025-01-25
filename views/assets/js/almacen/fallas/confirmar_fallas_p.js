@@ -1,10 +1,13 @@
 import app from "../../api.js";
+import utilidades from "../../utilidades.js";
+const { asignar_valores_select } = utilidades();
+
 const d = document,
   $fragment = d.createDocumentFragment(),
   $body_table_partes = d.querySelector("#body_table_partes");
+const $motivo = d.querySelector("#motivo");
 
 const modal = d.querySelector("#modal");
-console.log(modal);
 
 const buscar_button = d.getElementById("buscar_b");
 
@@ -17,12 +20,11 @@ const mostrar_datos_tabla_partes = async (data) => {
   if (data[0].length > 0) {
     data[0].forEach((element, i) => {
       //Insertamos los datos en el template
-    
-    
+
       //   $template_body_table_partes.querySelector(".num_pedido").textContent =
-    //     element.numero_pedido;
-    //   $template_body_table_partes.querySelector(".id_despachador").textContent =
-    //     element.id_despachador;
+      //     element.numero_pedido;
+      //   $template_body_table_partes.querySelector(".id_despachador").textContent =
+      //     element.id_despachador;
 
       $template_body_table_partes.querySelector(".num_parte").textContent = `${
         i + 1
@@ -43,12 +45,15 @@ const mostrar_datos_tabla_partes = async (data) => {
         element.id_parte;
 
       if (element.fecha_confirmado != null && element.fecha_confirmado != "") {
-        $template_body_table_partes.querySelector(".agregar_falla_b").disabled = true;
+        $template_body_table_partes.querySelector(
+          ".agregar_falla_b"
+        ).disabled = true;
         $template_body_table_partes.querySelector(
           ".agregar_falla_b"
         ).style.opacity = 0.5;
-        $template_body_table_partes.querySelector(".agregar_falla_b").innerText =
-          "Listo";
+        $template_body_table_partes.querySelector(
+          ".agregar_falla_b"
+        ).innerText = "Listo";
       } else {
         $template_body_table_partes.querySelector(
           ".agregar_falla_b"
@@ -56,8 +61,9 @@ const mostrar_datos_tabla_partes = async (data) => {
         $template_body_table_partes.querySelector(
           ".agregar_falla_b"
         ).style.opacity = 1;
-        $template_body_table_partes.querySelector(".agregar_falla_b").innerText =
-          "Agregar";
+        $template_body_table_partes.querySelector(
+          ".agregar_falla_b"
+        ).innerText = "Agregar";
       }
 
       //guardamos una copia de la estrutura actual del template en la variable $node
@@ -96,13 +102,37 @@ const extraer_datos_fallas = async (form_data) => {
   }
 };
 
-const confirmar_pedido = async (form_data) => {
+const mostrar_motivos = (data_motivos) => {
+  asignar_valores_select({
+    data: data_motivos,
+    titulo: "Seleccionar Motivo",
+    input: $motivo,
+    nombre_opciones: {
+      id: "id",
+      nombre: "descripcion",
+    },
+  });
+};
+
+const extraer_data_motivo_fallas = async () => {
+  try {
+    const data_motivo_fallas = await app(
+      "http://localhost/vitalclinic/controllers/almacen/fallas/fallas_pedidos.php?extraer_motivos=1"
+    );
+    mostrar_motivos(data_motivo_fallas);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const confirmar_falla_p = async (form_data) => {
   try {
     const response = await app(
-      "http://localhost/vitalclinic/controllers/almacen/pedidos/pedidos.php?confirmar_pedido=1",
+      "http://localhost/vitalclinic/controllers/almacen/fallas/fallas_pedidos.php?confirmar_falla_p=1",
       "POST",
       form_data
     );
+console.log(form_data.get('id_pedido_d_r_e'));
 
     if (response.data[0].data == true) {
       const numero_pedido = d.querySelector("#cod_pedido").value;
@@ -147,33 +177,44 @@ buscar_button.addEventListener("click", async (e) => {
 //   }
 // });
 
-
+d.addEventListener("DOMContentLoaded", async (e) => {
+  try {
+    await extraer_data_motivo_fallas();
+  } catch (error) {
+    console.log(error);
+  }
+});
 
 d.addEventListener("click", async (e) => {
   if (e.target.classList.contains("agregar_falla_b")) {
     // const id_parte = e.target.dataset.id;
 
-    modal.style.display = "block";
-    console.log(modal);
-    
- 
-  }
+    localStorage.setItem("id_pedido_d_r_e", e.target.dataset.id);
 
+    modal.style.display = "block";
+
+    d.querySelector(".confirmar_falla").dataset.id = localStorage.getItem("id");
+  }
 });
 
-// $body_table_partes.addEventListener("click",(e) =>{
-//   try {
-//     if(e.target.matches(".confirm_b")){
-//       const id_pedido = e.target.parentElement.parentElement.querySelector(".num_pedido").textContent;
-//       const id_despachador = e.target.parentElement.parentElement.querySelector(".id_despachador").textContent;
-//       confirmar_pedido(id_pedido,id_despachador);
+d.addEventListener("click", async (e) => {
+  try {
+    if (e.target.matches(".confirmar_falla")) {
+      const id_pedido_d_r_e = localStorage.getItem("id_pedido_d_r_e");
+      const motivo = d.querySelector("#motivo").value;
+      const descripcion = d.querySelector("#descripcion").value;
 
-//     }
-//   }catch(error) {
-//     console.log("Problemas en el evento  de confirmar pedido" , error.message);
+      const form_data = new FormData();
 
-//   }
+      form_data.append("id_pedido_d_r_e", id_pedido_d_r_e);
+      form_data.append("motivo", motivo);
+      form_data.append("descripcion", descripcion);
 
-// });
+      await confirmar_falla_p(form_data);
 
-
+      return alert("Pedido Confirmado");
+    }
+  } catch (error) {
+    console.log("Problemas en el evento  de confirmar pedido p", error.message);
+  }
+});

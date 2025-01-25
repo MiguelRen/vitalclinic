@@ -32,7 +32,12 @@
             $data = $motivos->eliminar_falla_despachador($id_falla);
             return $data;
         }
-    }
+        public function confirmar_falla_p($id_pedido_d_r_e = "",$motivo ="",$descripcion=""){
+            $falla_inst = new FallasModel();
+            $data = $falla_inst -> confirmar_falla_p($id_pedido_d_r_e, $motivo , $descripcion);
+            return $data;
+        }
+    } 
 
     if(isset($_GET['extraer_motivos'])){
         $controller = new FallasController();
@@ -106,4 +111,28 @@
         }
     }
 
+    if(isset($_GET['confirmar_falla_p'])){
+        $id_pedido_d_r_e = $_POST['id_pedido_d_r_e'];
+        $motivo= $_POST['motivo'];
+        $descripcion = $_POST['descripcion'];
+
+
+
+        $controller = new FallasController();
+        $data = $controller->confirmar_falla_p($id_pedido_d_r_e, $motivo, $descripcion);
+
+        if($data){
+            $response = [
+                "data" => [$data],
+                "error" => [],
+            ];
+            echo json_encode($response);
+        }else{
+            $response = [
+                "data" => [],
+                "error" => ["Ha ocurrido un error"],
+            ];
+            echo json_encode($response);
+        }
+    }
     
