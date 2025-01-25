@@ -104,6 +104,9 @@
                   <li>
                      <a href="eliminar_fallas" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Eliminar Fallas</a>
                   </li>
+                  <li>
+                     <a href="confirmar_fallas_p" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Confirmar Fallas P</a>
+                  </li>
             </ul>
          </li>
          <!-- <li>

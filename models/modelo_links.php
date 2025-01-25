@@ -30,6 +30,7 @@
             "pedidos_por_despachador" => "almacen/estadisticas/pedidos_por_despachador",
             "registrar_articulos" => "deposito/articulos/registro_articulos",    
             "confirmar_pedido"    => "almacen/pedidos/confirmar_pedido" , 
+            "confirmar_fallas_p" => "almacen/fallas/confirmar_fallas_p",
  ];
 
         public function checkLinkExistence($name_link){
