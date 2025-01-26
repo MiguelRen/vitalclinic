@@ -211,33 +211,36 @@ use LDAP\Result;
             //   }
         }
 
-        public function confirmar_falla_p($id_pedido = "",$motivo ="",$descripcion=""){
-            
-
+        public function confirmar_falla_p($id_pedido_d_r_e="",$motivo="",$descripcion=""){
+           
             $sqL_despachador = " SELECT 
             id_despachador 
             FROM pedidos_d_r_e
-            Where id_pedido = ? ;";
+            Where id = ? ;";
 
             $stmt1 = $this->conn-> prepare ($sqL_despachador);
-            $stmt1->bind_param("s",$id_pedido);
+            $stmt1->bind_param("s",$id_pedido_d_r_e);
             
-            $id_despachador = $stmt1->execute(); 
-            
-            print_r($id_despachador);
+            $stmt1->execute(); 
+            $result= $stmt1->get_result();
+
+            if($result->num_rows >0){
+                while($row = $result->fetch_assoc()){
+                    $id_despachador = $row['id_despachador'];
+                }
+
+            }
 
 
 
             $sql_registro = "INSERT INTO fallas_despachador
-            (despachador,id_pedido_d_r_e,motivo, descripcion)
-            values
-            (?,?,?,?);";
-
+            (despachador,id_pedido_d_r_e,motivo, descripcion,fecha)
+            VALUES
+            (?,?,?,?,NOW());";
+           
             $stmt2 = $this->conn->prepare($sql_registro);
-            $stmt2->bind_param("s",$id_despachador);
-            $stmt2->bind_param("s",$id_pedido_d_r_e);
-            $stmt2->bind_param("s",$motivo);
-            $stmt2->bind_param("s",$descripcion);
+            $stmt2->bind_param("ssss",$id_despachador, $id_pedido_d_r_e   , $motivo , $descripcion);
+          
 
             $result = $stmt2->execute();
             return $result;

@@ -132,16 +132,17 @@ const confirmar_falla_p = async (form_data) => {
       "POST",
       form_data
     );
-console.log(form_data.get('id_pedido_d_r_e'));
 
-    if (response.data[0].data == true) {
-      const numero_pedido = d.querySelector("#cod_pedido").value;
-      const pedido = new FormData();
-      pedido.append("numero_pedido", numero_pedido);
-      await extraer_datos_confirmar(pedido);
 
-      return alert("Pedido Confirmado");
+    
+    if (response.data[0]== true) {
+      
+      alert("Pedido Confirmado");
+
+      modal.style.display = "none";
+      return 
     } else {
+     
       alert(response.error);
     }
   } catch (error) {
@@ -197,22 +198,47 @@ d.addEventListener("click", async (e) => {
   }
 });
 
+d.addEventListener("click",(e)=>{
+  try {
+    if(e.target.matches("#close-modal-button")){
+      modal.style.display = "none";
+      
+    }
+
+  } catch (error) {
+    console.log(error);
+    
+  }
+});
+
 d.addEventListener("click", async (e) => {
   try {
     if (e.target.matches(".confirmar_falla")) {
+
       const id_pedido_d_r_e = localStorage.getItem("id_pedido_d_r_e");
       const motivo = d.querySelector("#motivo").value;
       const descripcion = d.querySelector("#descripcion").value;
 
-      const form_data = new FormData();
+      if (motivo == "" ) {
+        alert ('Por favor, rellene el campo "Motivo"');
+        return ;
+      }else if(descripcion == ""){
+        alert ('Por favor, rellene el campo "Descripción"');
+        return;
+      }else{
 
-      form_data.append("id_pedido_d_r_e", id_pedido_d_r_e);
-      form_data.append("motivo", motivo);
-      form_data.append("descripcion", descripcion);
+        
+              const form_data = new FormData();
+        
+              form_data.append("id_pedido_d_r_e", id_pedido_d_r_e);
+              form_data.append("motivo", motivo);
+              form_data.append("descripcion", descripcion);
+        
+        
+              await confirmar_falla_p(form_data);
+      }
 
-      await confirmar_falla_p(form_data);
-
-      return alert("Pedido Confirmado");
+  
     }
   } catch (error) {
     console.log("Problemas en el evento  de confirmar pedido p", error.message);

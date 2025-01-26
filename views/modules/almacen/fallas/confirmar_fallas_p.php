@@ -92,9 +92,14 @@ $acceso = $control_privilegios->verificar_privilegios($privilegio);
     padding: 20px;
     border-radius: 10px ;
     border: 1px solid #888;
-    width: 80%; " class="modal">
+    width: 50%; " class="modal">
+    <div class="">
+    <button id="close-modal-button" type="button" class=" focus:outline-none text-white bg-gray-400 hover:bg-gray-300
+     focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2 me-2  dark:bg-gray-600 dark:hover:bg-gray-200 dark:focus:ring-gray-900">x</button>
+
+    </div>
         <div class="modal-header flex flex-col items-center">
-            <h1 class=" text-2xl">AGREGAR FALLA</h1>
+            <h1 class=" text-2xl my-2">AGREGAR FALLA</h1>
             
         </div>
         <form class="flex flex-col items-center py-4 h-fit border-2 border-gray-200 rounded-md bg-blue-500">
