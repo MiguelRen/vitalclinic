@@ -34,9 +34,7 @@ const mostrar_datos_tabla_partes = async (data) => {
         element.nombre;
       $template_body_table_partes.querySelector(".apellido").textContent =
         element.apellido;
-      $template_body_table_partes.querySelector(
-        ".fecha_entregado"
-      ).textContent = element.fecha;
+     
       $template_body_table_partes.querySelector(
         ".fecha_terminado"
       ).textContent = element.fecha_confirmado;
@@ -44,27 +42,27 @@ const mostrar_datos_tabla_partes = async (data) => {
       $template_body_table_partes.querySelector(".agregar_falla_b").dataset.id =
         element.id_parte;
 
-      if (element.fecha_confirmado != null && element.fecha_confirmado != "") {
-        $template_body_table_partes.querySelector(
-          ".agregar_falla_b"
-        ).disabled = true;
-        $template_body_table_partes.querySelector(
-          ".agregar_falla_b"
-        ).style.opacity = 0.5;
-        $template_body_table_partes.querySelector(
-          ".agregar_falla_b"
-        ).innerText = "Listo";
-      } else {
-        $template_body_table_partes.querySelector(
-          ".agregar_falla_b"
-        ).disabled = false;
-        $template_body_table_partes.querySelector(
-          ".agregar_falla_b"
-        ).style.opacity = 1;
-        $template_body_table_partes.querySelector(
-          ".agregar_falla_b"
-        ).innerText = "Agregar";
-      }
+      // if (element.fecha_confirmado != null && element.fecha_confirmado != "") {
+      //   $template_body_table_partes.querySelector(
+      //     ".agregar_falla_b"
+      //   ).disabled = true;
+      //   $template_body_table_partes.querySelector(
+      //     ".agregar_falla_b"
+      //   ).style.opacity = 0.5;
+      //   $template_body_table_partes.querySelector(
+      //     ".agregar_falla_b"
+      //   ).innerText = "Listo";
+      // } else {
+      //   $template_body_table_partes.querySelector(
+      //     ".agregar_falla_b"
+      //   ).disabled = false;
+      //   $template_body_table_partes.querySelector(
+      //     ".agregar_falla_b"
+      //   ).style.opacity = 1;
+      //   $template_body_table_partes.querySelector(
+      //     ".agregar_falla_b"
+      //   ).innerText = "Agregar";
+      // }
 
       //guardamos una copia de la estrutura actual del template en la variable $node
       let $clone = $template_body_table_partes.cloneNode(true);
@@ -85,12 +83,16 @@ const mostrar_datos_tabla_partes = async (data) => {
 const extraer_datos_fallas = async (form_data) => {
   try {
     const response = await app(
-      "http://localhost/vitalclinic/controllers/almacen/pedidos/pedidos.php?consult_confirm_pedido=1",
+      "http://localhost/vitalclinic/controllers/almacen/fallas/fallas_pedidos.php?extraer_fallas_despachador_p=1",
       "POST",
       form_data
     );
 
+console.log(response.data);
+
     if (response.data.length > 0) {
+      console.log(response.data);
+      
       mostrar_datos_tabla_partes([response.data[0]]);
     } else {
       alert("El número de pedido no se encuentra registrado");
@@ -119,6 +121,8 @@ const extraer_data_motivo_fallas = async () => {
     const data_motivo_fallas = await app(
       "http://localhost/vitalclinic/controllers/almacen/fallas/fallas_pedidos.php?extraer_motivos=1"
     );
+
+
     mostrar_motivos(data_motivo_fallas);
   } catch (error) {
     console.log(error);
