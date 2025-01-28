@@ -261,52 +261,60 @@ class FallasModel extends Connection
         // ;";
 
         $sql = "
-        SELECT 
-        pedidos_d_r_e.id AS id,
-        empleados.nombre,
-        empleados.apellido,
-        pedidos_d_r_e.fecha_confirmado,
-        fallaS_despachador.despachador,
-        fallas_despachador.motivo,
-        fallas_despachador.descripcion,
-        fallas_despachador.fecha
-        FROM  pedidos 
-        INNER JOIN pedidos_d_r_e ON pedidos_d_r_e.id_pedido = pedidos.id_pedido 
-        INNER JOIN empleados ON empleados.id = pedidos_d_r_e.id_despachador 
-        INNER JOIN fallas_despachador ON fallas_despachador.id_pedido_d_r_e = pedidos_d_r_e.id 
-        WHERE pedidos.numero_pedido = ?
-        ORDER BY pedidos_d_r_e.id ASC
-         ;";
+     SELECT
+    pedidos_d_r_e.id AS id_pedido_d_r_e,
+    pedidos_d_r_e.fecha_rechequeado,
+    pedidos_d_r_e.fecha_confirmado,
+    pedidos_d_r_e.id_despachador,
+    empleados.nombre,
+    empleados.apellido,
+    fallas_despachador.motivo,
+    fallas_despachador.descripcion,
+    fallas_despachador.fecha AS fecha_falla
+FROM
+    pedidos
+    INNER JOIN pedidos_d_r_e ON pedidos_d_r_e.id_pedido = pedidos.id_pedido
+    INNER JOIN empleados ON empleados.id = pedidos_d_r_e.id_despachador
+    LEFT JOIN fallas_despachador ON fallas_despachador.id_pedido_d_r_e = pedidos_d_r_e.id
+WHERE
+    pedidos.numero_pedido = ?
+ORDER BY
+    pedidos_d_r_e.id ASC;
+    ";
 
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("s", $numero_pedido);
         $stmt->execute();
         $result = $stmt->get_result();
         $data = [];
-       
-        while ($row = $result->fetch_assoc()) {
-            $id                 =   $row['id'];
-            $nombre_empleado    =   $row['nombre'];
-            $apellido_empleado  =   $row['apellido'];
-            $fecha_confirmado   =   $row['fecha_confirmado'];
-            $despachador        =   $row['despachador'];
-            
-            if(!isset($data[$despachador])){
-               
-                $data[$despachador] = [
 
-                    'id'        => $id,
-                    'nombre'    => $nombre_empleado,
-                    'apellido'  => $apellido_empleado,
-                    'fecha_confirmado'=> $fecha_confirmado,
-                    'fallas'    =>[]
+        while ($row = $result->fetch_assoc()) {
+            $id = $row['id_pedido_d_r_e'];
+            $nombre_empleado = $row['nombre'];
+            $apellido_empleado = $row['apellido'];
+            $fecha_confirmado = $row['fecha_confirmado'];
+            $fecha_rechequeado = $row['fecha_rechequeado'];
+            $despachador = $row['id_despachador'];
+
+            $clave_unica = $despachador.'_'.$id;
+
+            if (!isset($data[$clave_unica]))  {
+
+                $data[$clave_unica] = [
+
+                    'id' => $id,
+                    'nombre' => $nombre_empleado,
+                    'apellido' => $apellido_empleado,
+                    'fecha_confirmado' => $fecha_confirmado,
+                    'fecha_rechequeado' => $fecha_rechequeado,
+                    'fallas' => []
                 ];
             }
-            if($row['motivo']){
-                $data[$despachador]['fallas'][]=[
-                    'motivo'        => $row['motivo'],
-                    'descripcion'   => $row['descripcion'],
-                    'fecha'         => $row['fecha']
+            if ($row['motivo']) {
+                $data[$clave_unica]['fallas'][] = [
+                    'motivo' => $row['motivo'],
+                    'descripcion' => $row['descripcion'],
+                    'fecha_falla' => $row['fecha_falla']
                 ];
             }
         }

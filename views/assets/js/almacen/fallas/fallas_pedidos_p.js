@@ -18,7 +18,35 @@ const mostrar_datos_tabla_partes = async (data) => {
   ).content;
 
   if (data[0].length > 0) {
+ 
+    
     data[0].forEach((element, i) => {
+
+      element.forEach((item) => {
+        console.log(item);
+        
+        $template_body_table_partes.querySelector(".num_parte").textContent = `${
+          i + 1
+        }`;
+  
+        $template_body_table_partes.querySelector(".nombre").textContent =
+          item.nombre;
+        $template_body_table_partes.querySelector(".apellido").textContent =
+          element.apellido;
+       
+        $template_body_table_partes.querySelector(
+          ".fecha_terminado"
+        ).textContent = element.fecha_confirmado;
+  
+        $template_body_table_partes.querySelector(".agregar_falla_b").dataset.id =
+          element.id_parte;
+  
+        //guardamos una copia de la estrutura actual del template en la variable $node
+        let $clone = $template_body_table_partes.cloneNode(true);
+  
+        //Guardamos el nodo en el fragment
+        $fragment.append($clone);
+      });
       //Insertamos los datos en el template
 
       //   $template_body_table_partes.querySelector(".num_pedido").textContent =
@@ -26,49 +54,6 @@ const mostrar_datos_tabla_partes = async (data) => {
       //   $template_body_table_partes.querySelector(".id_despachador").textContent =
       //     element.id_despachador;
 
-      $template_body_table_partes.querySelector(".num_parte").textContent = `${
-        i + 1
-      }`;
-
-      $template_body_table_partes.querySelector(".nombre").textContent =
-        element.nombre;
-      $template_body_table_partes.querySelector(".apellido").textContent =
-        element.apellido;
-     
-      $template_body_table_partes.querySelector(
-        ".fecha_terminado"
-      ).textContent = element.fecha_confirmado;
-
-      $template_body_table_partes.querySelector(".agregar_falla_b").dataset.id =
-        element.id_parte;
-
-      // if (element.fecha_confirmado != null && element.fecha_confirmado != "") {
-      //   $template_body_table_partes.querySelector(
-      //     ".agregar_falla_b"
-      //   ).disabled = true;
-      //   $template_body_table_partes.querySelector(
-      //     ".agregar_falla_b"
-      //   ).style.opacity = 0.5;
-      //   $template_body_table_partes.querySelector(
-      //     ".agregar_falla_b"
-      //   ).innerText = "Listo";
-      // } else {
-      //   $template_body_table_partes.querySelector(
-      //     ".agregar_falla_b"
-      //   ).disabled = false;
-      //   $template_body_table_partes.querySelector(
-      //     ".agregar_falla_b"
-      //   ).style.opacity = 1;
-      //   $template_body_table_partes.querySelector(
-      //     ".agregar_falla_b"
-      //   ).innerText = "Agregar";
-      // }
-
-      //guardamos una copia de la estrutura actual del template en la variable $node
-      let $clone = $template_body_table_partes.cloneNode(true);
-
-      //Guardamos el nodo en el fragment
-      $fragment.append($clone);
     });
 
     // //Limpiamos la lista
@@ -88,11 +73,9 @@ const extraer_datos_fallas = async (form_data) => {
       form_data
     );
 
-console.log(response.data);
 
     if (response.data.length > 0) {
-      console.log(response.data);
-      
+      console.log(response.data[0,0,1]);
       mostrar_datos_tabla_partes([response.data[0]]);
     } else {
       alert("El número de pedido no se encuentra registrado");
