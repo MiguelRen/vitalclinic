@@ -11,75 +11,152 @@ const modal = d.querySelector("#modal");
 
 const buscar_button = d.getElementById("buscar_b");
 
-const mostrar_datos_tabla_partes = async (data) => {
-  //tratamos los datos acá
+// const mostrar_datos_tabla_partes = async (data) => {
+//   //tratamos los datos acá
 
+//   const fila_pedidos = data[0];
+
+//   //Enlazamos el template creado en el HTML
+//   const $template_body_table_partes = d.querySelector(
+//     "#template_body_table_partes"
+//   ).content;
+
+//   if (Object.keys(data[0]).length) {
+//     Object.keys(fila_pedidos).forEach((key) => {
+//       const elemento = fila_pedidos[key];
+
+      
+
+//       $template_body_table_partes.querySelector(".num_parte").textContent = `${
+//         key + 1
+//       }`;
+
+//       $template_body_table_partes.querySelector(".nombre").textContent =
+//         elemento.nombre;
+
+//       $template_body_table_partes.querySelector(".apellido").textContent =
+//         elemento.apellido;
+
+//       $template_body_table_partes.querySelector(
+//         ".fecha_confirmado"
+//       ).textContent = elemento.fecha_confirmado;
+
+//       $template_body_table_partes.querySelector(
+//         ".fecha_rechequeado"
+//       ).textContent = elemento.fecha_rechequeado;
+
+//       const falla_combo = elemento.fallas;
+
+//       let aux = 0;
+//       Object.keys(falla_combo).forEach((e) => {
+//         aux = aux + 1;
+//       });
+
+//       $template_body_table_partes.querySelector(
+//         ".cantidad_fallas"
+//       ).textContent = aux;
+      
+      
+//       if (elemento.fecha_confirmado === null) {
+//         $template_body_table_partes.querySelector(
+//           ".agregar_falla_b"
+//         ).textContent = "No Confirmado";
+//         $template_body_table_partes.querySelector(
+//           ".agregar_falla_b"
+//         ).disabled = true;
+//         $template_body_table_partes.querySelector(
+//           ".agregar_falla_b"
+//         ).style.opacity = 0.5;
+//       } 
+//       if (elemento.fecha_rechequeado === null) {
+//          console.log(`${elemento.fecha_confirmado}  ${elemento.fecha_rechequeado}`);
+//         $template_body_table_partes.querySelector(
+//           ".agregar_falla_b"
+//         ).textContent = "No Rechequeado";
+//         $template_body_table_partes.querySelector(
+//           ".agregar_falla_b"
+//         ).disabled = true;
+//         $template_body_table_partes.querySelector(
+//           ".agregar_falla_b"
+//         ).style.opacity = 0.5;
+//       }
+
+//       $template_body_table_partes.querySelector(".agregar_falla_b").dataset.id =
+//         elemento.id;
+
+//       //guardamos una copia de la estrutura actual del template en la variable $node
+//       let $clone = $template_body_table_partes.cloneNode(true);
+
+//       //Guardamos el nodo en el fragment
+//       $fragment.append($clone);
+//     });
+
+    
+//     // //Limpiamos la lista
+//     $body_table_partes.innerHTML = "";
+//     //Insertamos el fragment en la lista
+//     $body_table_partes.append($fragment);
+//   } else {
+//     $body_table_partes.innerHTML = "";
+//   }
+// };
+
+
+const mostrar_datos_tabla_partes = async (data) => {
+  // Tratamos los datos acá
   const fila_pedidos = data[0];
 
-  //Enlazamos el template creado en el HTML
+  // Enlazamos el template creado en el HTML
   const $template_body_table_partes = d.querySelector(
     "#template_body_table_partes"
   ).content;
+
+  // Limpiamos la lista antes de agregar nuevos datos
+  $body_table_partes.innerHTML = "";
 
   if (Object.keys(data[0]).length) {
     Object.keys(fila_pedidos).forEach((key) => {
       const elemento = fila_pedidos[key];
 
-    
+      // Clonamos el template antes de modificarlo
+      const $clonado = document.importNode($template_body_table_partes, true);
 
-      $template_body_table_partes.querySelector(".num_parte").textContent = `${
-        key + 1
-      }`;
+      $clonado.querySelector(".num_parte").textContent = `${key + 1}`;
+      $clonado.querySelector(".nombre").textContent = elemento.nombre;
+      $clonado.querySelector(".apellido").textContent = elemento.apellido;
+      $clonado.querySelector(".fecha_confirmado").textContent = elemento.fecha_confirmado;
+      $clonado.querySelector(".fecha_rechequeado").textContent = elemento.fecha_rechequeado;
 
-      $template_body_table_partes.querySelector(".nombre").textContent =
-        elemento.nombre;
+      const falla_combo = elemento.fallas;
+      const cantidadFallas = falla_combo.length; // Contar directamente la longitud del array
 
-      $template_body_table_partes.querySelector(".apellido").textContent =
-        elemento.apellido;
+      $clonado.querySelector(".cantidad_fallas").textContent = cantidadFallas;
 
-      $template_body_table_partes.querySelector(
-        ".fecha_confirmado"
-      ).textContent = elemento.fecha_confirmado;
+      // Lógica para habilitar/deshabilitar el botón
+      const botonAgregarFalla = $clonado.querySelector(".agregar_falla_b");
+      botonAgregarFalla.disabled = false; // Inicialmente habilitado
 
-      $template_body_table_partes.querySelector(
-        ".fecha_rechequeado"
-      ).textContent = elemento.fecha_rechequeado;
+      if (elemento.fecha_confirmado === null) {
+        botonAgregarFalla.textContent = "No Confirmado";
+        botonAgregarFalla.disabled = true;
+        botonAgregarFalla.style.opacity = 0.5;
+      } 
+      if (elemento.fecha_rechequeado === null) {
+        console.log(`${elemento.fecha_confirmado}  ${elemento.fecha_rechequeado}`);
+        botonAgregarFalla.textContent = "No Rechequeado";
+        botonAgregarFalla.disabled = true;
+        botonAgregarFalla.style.opacity = 0.5;
+      }
 
-      const falla_combo = elemento.fallas; 
-      
-      let aux=0;
-      Object.keys(falla_combo).forEach(e =>{
-        
-          aux = aux + 1;
-      });
+      // Asignar el ID al dataset del botón
+      botonAgregarFalla.dataset.id = elemento.id;
 
-      $template_body_table_partes.querySelector(
-        ".cantidad_fallas"
-      ).textContent = aux;
-
-      $template_body_table_partes.querySelector(".agregar_falla_b").dataset.id =
-        elemento.id_parte;
-
-      //guardamos una copia de la estrutura actual del template en la variable $node
-      let $clone = $template_body_table_partes.cloneNode(true);
-
-      //Guardamos el nodo en el fragment
-      $fragment.append($clone);
+      // Guardamos el nodo clonado en el fragment
+      $fragment.append($clonado);
     });
 
-    //Insertamos los datos en el template
-
-    //   $template_body_table_partes.querySelector(".num_pedido").textContent =
-    //     elemento.numero_pedido;
-    //   $template_body_table_partes.querySelector(".id_despachador").textContent =
-    //     element.id_despachador;
-
-    // //Limpiamos la lista
-    $body_table_partes.innerHTML = "";
-    //Insertamos el fragment en la lista
+    // Insertamos el fragment en la lista
     $body_table_partes.append($fragment);
-  } else {
-    $body_table_partes.innerHTML = "";
   }
 };
 
