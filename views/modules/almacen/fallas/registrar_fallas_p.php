@@ -12,7 +12,7 @@ $acceso = $control_privilegios->verificar_privilegios($privilegio);
     ?>
     <div class="w-full mt-4">
         <div class="bg-blue-500 border-2 border-white rounded-md mb-4 w-fit px-4 mx-auto">
-            <h1 class="text-2xl font-bold text-white text-center">CONFIRMAR FALLA P</h1>
+            <h1 class="text-2xl font-bold text-white text-center">REGISTRAR FALLA P</h1>
         </div>
 
         <div class="w-96 flex flex-col justify-center items-center gap-y-1 w-full h-fit">
@@ -41,10 +41,10 @@ $acceso = $control_privilegios->verificar_privilegios($privilegio);
                     <!-- <th  class="border-2 border-black-500 text-white bg-gray-400">Pedido</th>
                 <th  class="border-2 border-black-500 text-white bg-gray-400">id_despachador</th> -->
                     <th class="border-2 border-black-500 text-white bg-gray-400">N° Parte</th>
-                    <th class="border-2 border-black-500 text-white bg-gray-400">Nombre</th>
-                    <th class="border-2 border-black-500 text-white bg-gray-400">Apellido</th>
                     <th class="border-2 border-black-500 text-white bg-gray-400">Fecha Confirmado</th>
+                    <th class="border-2 border-black-500 text-white bg-gray-400">Despachador</th>
                     <th class="border-2 border-black-500 text-white bg-gray-400">Fecha Rechequeado</th>
+                    <th class="border-2 border-black-500 text-white bg-gray-400">Rechequeador</th>
                     <th class="border-2 border-black-500 text-white bg-gray-400">Cant Fallas</th>
                     <th class="border-2 border-black-500 text-white bg-gray-400"></th>
 
@@ -58,19 +58,19 @@ $acceso = $control_privilegios->verificar_privilegios($privilegio);
 
 
 <template id="template_body_table_partes">
-    <tr class="tr hover:bg-gray-200">
+    <tr class="tr hover:bg-gray-200 py-0">
         <!-- <td class="num_pedido border-2 border-black-500 text-black text-center " ></td>
 
         <td class="id_despachador    border-2 border-black-500 text-black text-center " ></td> -->
-        <td class="num_parte border-2 border-black-500 text-black text-center"></td>
-        <td class="nombre border-2 border-black-500 text-black text-center"></td>
-        <td class="apellido border-2 border-black-500 text-black text-center"></td>
-        <td class="fecha_confirmado border-2 border-black-500 text-black text-center"></td>
-        <td class="fecha_rechequeado border-2 border-black-500 text-black text-center"></td>
-        <td class="cantidad_fallas border-2 border-black-500 text-black text-center"></td>
-        <td>
+        <td class="num_parte border-2 border-black-500 text-black text-center   py-0"></td>
+        <td class="fecha_confirmado border-2 border-black-500 text-black text-center py-0"></td>
+        <td class="despachador border-2 border-black-500 text-black text-center py-0" ></td>
+        <td class="fecha_rechequeado border-2 border-black-500 text-black text-center py-0"></td>
+        <td class="rechequeador border-2 border-black-500 text-black text-center py-0"></td>
+        <td class="cantidad_fallas border-2 border-black-500 text-black text-center py-0"></td>
+        <td class="py-0">
             <button id="agregar_falla_b"
-                class="agregar_falla_b w-full border-2 border-gray-300 rounded-md px-6 py-2 mt-3 mb-2 
+                class="agregar_falla_b w-full border-2 border-gray-300 rounded-md px-2 py-2 mt-0 mb-0
                 font-extralight text-white text-base font-medium focus:outline-none cursor-pointer bg-blue-600">Agregar</button>
         </td>
     </tr>

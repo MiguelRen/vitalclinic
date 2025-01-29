@@ -261,21 +261,27 @@ class FallasModel extends Connection
         // ;";
 
         $sql = "
-     SELECT
+SELECT
     pedidos_d_r_e.id AS id_pedido_d_r_e,
     pedidos_d_r_e.fecha_rechequeado,
     pedidos_d_r_e.fecha_confirmado,
     pedidos_d_r_e.id_despachador,
-    empleados.nombre,
-    empleados.apellido,
+    despachador.nombre AS nombre_despachador,
+    despachador.apellido AS apellido_despachador,
     fallas_despachador.motivo,
     fallas_despachador.descripcion,
-    fallas_despachador.fecha AS fecha_falla
+    fallas_despachador.fecha AS fecha_falla,
+    
+    rechequeador.nombre AS nombre_rechequeador,
+    rechequeador.apellido AS apellido_rechequeador
 FROM
     pedidos
     INNER JOIN pedidos_d_r_e ON pedidos_d_r_e.id_pedido = pedidos.id_pedido
-    INNER JOIN empleados ON empleados.id = pedidos_d_r_e.id_despachador
+    INNER JOIN empleados AS despachador ON despachador.id = pedidos_d_r_e.id_despachador
+
     LEFT JOIN fallas_despachador ON fallas_despachador.id_pedido_d_r_e = pedidos_d_r_e.id
+    LEFT JOIN accounts ON accounts.id_account = pedidos_d_r_e.id_rechequeador
+    LEFT JOIN empleados AS rechequeador ON rechequeador.id = accounts.id_empleado  -- Cambiado aquí
 WHERE
     pedidos.numero_pedido = ?
 ORDER BY
@@ -290,11 +296,13 @@ ORDER BY
 
         while ($row = $result->fetch_assoc()) {
             $id = $row['id_pedido_d_r_e'];
-            $nombre_empleado = $row['nombre'];
-            $apellido_empleado = $row['apellido'];
+            $nombre_empleado = $row['nombre_despachador'];
+            $apellido_empleado = $row['apellido_despachador'];
             $fecha_confirmado = $row['fecha_confirmado'];
             $fecha_rechequeado = $row['fecha_rechequeado'];
             $despachador = $row['id_despachador'];
+            $nombre_rechequeador = $row['nombre_rechequeador'];
+            $apellido_rechequeador = $row['apellido_rechequeador'];
 
             $clave_unica = $despachador.'_'.$id;
 
@@ -303,10 +311,12 @@ ORDER BY
                 $data[$clave_unica] = [
 
                     'id' => $id,
-                    'nombre' => $nombre_empleado,
-                    'apellido' => $apellido_empleado,
+                    'nombre_despachador' => $nombre_empleado,
+                    'apellido_despachador' => $apellido_empleado,
                     'fecha_confirmado' => $fecha_confirmado,
                     'fecha_rechequeado' => $fecha_rechequeado,
+                    'nombre_rechequeador' => $nombre_rechequeador,
+                    'apellido_rechequeador' => $apellido_rechequeador ,
                     'fallas' => []
                 ];
             }

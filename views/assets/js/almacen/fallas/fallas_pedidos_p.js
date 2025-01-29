@@ -113,48 +113,51 @@ const mostrar_datos_tabla_partes = async (data) => {
 
   // Limpiamos la lista antes de agregar nuevos datos
   $body_table_partes.innerHTML = "";
-
   if (Object.keys(data[0]).length) {
-    Object.keys(fila_pedidos).forEach((key) => {
+    
+    
+    Object.keys(fila_pedidos).forEach((key , i) => {
       const elemento = fila_pedidos[key];
-
+      
       // Clonamos el template antes de modificarlo
       const $clonado = document.importNode($template_body_table_partes, true);
-
-      $clonado.querySelector(".num_parte").textContent = `${key + 1}`;
-      $clonado.querySelector(".nombre").textContent = elemento.nombre;
-      $clonado.querySelector(".apellido").textContent = elemento.apellido;
+      
+      $clonado.querySelector(".num_parte").textContent = `${i +1}`;
+      const despachador = elemento.nombre_despachador ? `${elemento.nombre_despachador} ${elemento.apellido_despachador}`: "" 
+      $clonado.querySelector(".despachador").textContent = despachador;
+      const rechequeador = elemento.nombre_rechequeador ? `${elemento.nombre_rechequeador} ${elemento.apellido_rechequeador}`: "" 
+      $clonado.querySelector(".rechequeador").textContent = rechequeador;
       $clonado.querySelector(".fecha_confirmado").textContent = elemento.fecha_confirmado;
       $clonado.querySelector(".fecha_rechequeado").textContent = elemento.fecha_rechequeado;
-
+      
       const falla_combo = elemento.fallas;
       const cantidadFallas = falla_combo.length; // Contar directamente la longitud del array
-
+      
       $clonado.querySelector(".cantidad_fallas").textContent = cantidadFallas;
-
+      
       // Lógica para habilitar/deshabilitar el botón
       const botonAgregarFalla = $clonado.querySelector(".agregar_falla_b");
       botonAgregarFalla.disabled = false; // Inicialmente habilitado
-
+      
+      if (elemento.fecha_rechequeado === null) {
+        
+        botonAgregarFalla.textContent = "No Rechequeado";
+        botonAgregarFalla.disabled = true;
+        botonAgregarFalla.style.opacity = 0.5;
+      }
       if (elemento.fecha_confirmado === null) {
         botonAgregarFalla.textContent = "No Confirmado";
         botonAgregarFalla.disabled = true;
         botonAgregarFalla.style.opacity = 0.5;
       } 
-      if (elemento.fecha_rechequeado === null) {
-        console.log(`${elemento.fecha_confirmado}  ${elemento.fecha_rechequeado}`);
-        botonAgregarFalla.textContent = "No Rechequeado";
-        botonAgregarFalla.disabled = true;
-        botonAgregarFalla.style.opacity = 0.5;
-      }
-
+      
       // Asignar el ID al dataset del botón
       botonAgregarFalla.dataset.id = elemento.id;
-
+      
       // Guardamos el nodo clonado en el fragment
       $fragment.append($clonado);
-    });
-
+          });
+    
     // Insertamos el fragment en la lista
     $body_table_partes.append($fragment);
   }
@@ -170,6 +173,7 @@ const extraer_datos_fallas = async (form_data) => {
 
     if (response.data.length > 0) {
       mostrar_datos_tabla_partes([response.data[0]]);
+    
     } else {
       alert("El número de pedido no se encuentra registrado");
     }
@@ -213,9 +217,20 @@ const confirmar_falla_p = async (form_data) => {
     );
 
     if (response.data[0] == true) {
-      alert("Pedido Confirmado");
+      const numero_pedido = localStorage.getItem("numero_pedido");
+      
+      alert("Falla Confirmada");
 
+      // d.querySelector("#motivo").textContent = "";
+      // d.querySelector("#descripcion").textContent = "";
+      
       modal.style.display = "none";
+      const form_data = new FormData();
+      form_data.append("numero_pedido", numero_pedido);
+      await extraer_datos_fallas(form_data);
+
+      
+
       return;
     } else {
       alert(response.error);
@@ -229,6 +244,8 @@ buscar_button.addEventListener("click", async (e) => {
   e.preventDefault();
 
   const numero_pedido = d.querySelector("#cod_pedido").value;
+  //guardamos pedido para luego usar en la recarga despues de  guardar
+  localStorage.setItem("numero_pedido",numero_pedido);
 
   if (numero_pedido === "") {
     alert("Ingrese el número del pedido");
