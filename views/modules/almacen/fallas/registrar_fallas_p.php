@@ -44,6 +44,7 @@ $acceso = $control_privilegios->verificar_privilegios($privilegio);
                     <th class="border-2 border-black-500 text-white bg-gray-400">Nombre</th>
                     <th class="border-2 border-black-500 text-white bg-gray-400">Apellido</th>
                     <th class="border-2 border-black-500 text-white bg-gray-400">Fecha Confirmado</th>
+                    <th class="border-2 border-black-500 text-white bg-gray-400">Fecha Rechequeado</th>
                     <th class="border-2 border-black-500 text-white bg-gray-400">Cant Fallas</th>
                     <th class="border-2 border-black-500 text-white bg-gray-400"></th>
 
@@ -64,7 +65,8 @@ $acceso = $control_privilegios->verificar_privilegios($privilegio);
         <td class="num_parte border-2 border-black-500 text-black text-center"></td>
         <td class="nombre border-2 border-black-500 text-black text-center"></td>
         <td class="apellido border-2 border-black-500 text-black text-center"></td>
-        <td class="fecha_terminado border-2 border-black-500 text-black text-center"></td>
+        <td class="fecha_confirmado border-2 border-black-500 text-black text-center"></td>
+        <td class="fecha_rechequeado border-2 border-black-500 text-black text-center"></td>
         <td class="cantidad_fallas border-2 border-black-500 text-black text-center"></td>
         <td>
             <button id="agregar_falla_b"

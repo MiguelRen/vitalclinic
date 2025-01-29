@@ -12,49 +12,67 @@ const modal = d.querySelector("#modal");
 const buscar_button = d.getElementById("buscar_b");
 
 const mostrar_datos_tabla_partes = async (data) => {
+  //tratamos los datos acá
+
+  const fila_pedidos = data[0];
+
   //Enlazamos el template creado en el HTML
   const $template_body_table_partes = d.querySelector(
     "#template_body_table_partes"
   ).content;
 
-  if (data[0].length > 0) {
- 
+  if (Object.keys(data[0]).length) {
+    Object.keys(fila_pedidos).forEach((key) => {
+      const elemento = fila_pedidos[key];
+
     
-    data[0].forEach((element, i) => {
 
-      element.forEach((item) => {
-        console.log(item);
+      $template_body_table_partes.querySelector(".num_parte").textContent = `${
+        key + 1
+      }`;
+
+      $template_body_table_partes.querySelector(".nombre").textContent =
+        elemento.nombre;
+
+      $template_body_table_partes.querySelector(".apellido").textContent =
+        elemento.apellido;
+
+      $template_body_table_partes.querySelector(
+        ".fecha_confirmado"
+      ).textContent = elemento.fecha_confirmado;
+
+      $template_body_table_partes.querySelector(
+        ".fecha_rechequeado"
+      ).textContent = elemento.fecha_rechequeado;
+
+      const falla_combo = elemento.fallas; 
+      
+      let aux=0;
+      Object.keys(falla_combo).forEach(e =>{
         
-        $template_body_table_partes.querySelector(".num_parte").textContent = `${
-          i + 1
-        }`;
-  
-        $template_body_table_partes.querySelector(".nombre").textContent =
-          item.nombre;
-        $template_body_table_partes.querySelector(".apellido").textContent =
-          element.apellido;
-       
-        $template_body_table_partes.querySelector(
-          ".fecha_terminado"
-        ).textContent = element.fecha_confirmado;
-  
-        $template_body_table_partes.querySelector(".agregar_falla_b").dataset.id =
-          element.id_parte;
-  
-        //guardamos una copia de la estrutura actual del template en la variable $node
-        let $clone = $template_body_table_partes.cloneNode(true);
-  
-        //Guardamos el nodo en el fragment
-        $fragment.append($clone);
+          aux = aux + 1;
       });
-      //Insertamos los datos en el template
 
-      //   $template_body_table_partes.querySelector(".num_pedido").textContent =
-      //     element.numero_pedido;
-      //   $template_body_table_partes.querySelector(".id_despachador").textContent =
-      //     element.id_despachador;
+      $template_body_table_partes.querySelector(
+        ".cantidad_fallas"
+      ).textContent = aux;
 
+      $template_body_table_partes.querySelector(".agregar_falla_b").dataset.id =
+        elemento.id_parte;
+
+      //guardamos una copia de la estrutura actual del template en la variable $node
+      let $clone = $template_body_table_partes.cloneNode(true);
+
+      //Guardamos el nodo en el fragment
+      $fragment.append($clone);
     });
+
+    //Insertamos los datos en el template
+
+    //   $template_body_table_partes.querySelector(".num_pedido").textContent =
+    //     elemento.numero_pedido;
+    //   $template_body_table_partes.querySelector(".id_despachador").textContent =
+    //     element.id_despachador;
 
     // //Limpiamos la lista
     $body_table_partes.innerHTML = "";
@@ -73,9 +91,7 @@ const extraer_datos_fallas = async (form_data) => {
       form_data
     );
 
-
     if (response.data.length > 0) {
-      console.log(response.data[0,0,1]);
       mostrar_datos_tabla_partes([response.data[0]]);
     } else {
       alert("El número de pedido no se encuentra registrado");
@@ -105,7 +121,6 @@ const extraer_data_motivo_fallas = async () => {
       "http://localhost/vitalclinic/controllers/almacen/fallas/fallas_pedidos.php?extraer_motivos=1"
     );
 
-
     mostrar_motivos(data_motivo_fallas);
   } catch (error) {
     console.log(error);
@@ -120,16 +135,12 @@ const confirmar_falla_p = async (form_data) => {
       form_data
     );
 
-
-    
-    if (response.data[0]== true) {
-      
+    if (response.data[0] == true) {
       alert("Pedido Confirmado");
 
       modal.style.display = "none";
-      return 
+      return;
     } else {
-     
       alert(response.error);
     }
   } catch (error) {
@@ -185,47 +196,38 @@ d.addEventListener("click", async (e) => {
   }
 });
 
-d.addEventListener("click",(e)=>{
+d.addEventListener("click", (e) => {
   try {
-    if(e.target.matches("#close-modal-button")){
+    if (e.target.matches("#close-modal-button")) {
       modal.style.display = "none";
-      
     }
-
   } catch (error) {
     console.log(error);
-    
   }
 });
 
 d.addEventListener("click", async (e) => {
   try {
     if (e.target.matches(".confirmar_falla")) {
-
       const id_pedido_d_r_e = localStorage.getItem("id_pedido_d_r_e");
       const motivo = d.querySelector("#motivo").value;
       const descripcion = d.querySelector("#descripcion").value;
 
-      if (motivo == "" ) {
-        alert ('Por favor, rellene el campo "Motivo"');
-        return ;
-      }else if(descripcion == ""){
-        alert ('Por favor, rellene el campo "Descripción"');
+      if (motivo == "") {
+        alert('Por favor, rellene el campo "Motivo"');
         return;
-      }else{
+      } else if (descripcion == "") {
+        alert('Por favor, rellene el campo "Descripción"');
+        return;
+      } else {
+        const form_data = new FormData();
 
-        
-              const form_data = new FormData();
-        
-              form_data.append("id_pedido_d_r_e", id_pedido_d_r_e);
-              form_data.append("motivo", motivo);
-              form_data.append("descripcion", descripcion);
-        
-        
-              await confirmar_falla_p(form_data);
+        form_data.append("id_pedido_d_r_e", id_pedido_d_r_e);
+        form_data.append("motivo", motivo);
+        form_data.append("descripcion", descripcion);
+
+        await confirmar_falla_p(form_data);
       }
-
-  
     }
   } catch (error) {
     console.log("Problemas en el evento  de confirmar pedido p", error.message);
