@@ -9,97 +9,11 @@ const $motivo = d.querySelector("#motivo");
 
 const modal = d.querySelector("#modal");
 
+const falla_modal = d.querySelector("#falla_modal");
+
 const buscar_button = d.getElementById("buscar_b");
+const cant_fallas_container = d.querySelector("cantidad_fallas");
 
-// const mostrar_datos_tabla_partes = async (data) => {
-//   //tratamos los datos acá
-
-//   const fila_pedidos = data[0];
-
-//   //Enlazamos el template creado en el HTML
-//   const $template_body_table_partes = d.querySelector(
-//     "#template_body_table_partes"
-//   ).content;
-
-//   if (Object.keys(data[0]).length) {
-//     Object.keys(fila_pedidos).forEach((key) => {
-//       const elemento = fila_pedidos[key];
-
-      
-
-//       $template_body_table_partes.querySelector(".num_parte").textContent = `${
-//         key + 1
-//       }`;
-
-//       $template_body_table_partes.querySelector(".nombre").textContent =
-//         elemento.nombre;
-
-//       $template_body_table_partes.querySelector(".apellido").textContent =
-//         elemento.apellido;
-
-//       $template_body_table_partes.querySelector(
-//         ".fecha_confirmado"
-//       ).textContent = elemento.fecha_confirmado;
-
-//       $template_body_table_partes.querySelector(
-//         ".fecha_rechequeado"
-//       ).textContent = elemento.fecha_rechequeado;
-
-//       const falla_combo = elemento.fallas;
-
-//       let aux = 0;
-//       Object.keys(falla_combo).forEach((e) => {
-//         aux = aux + 1;
-//       });
-
-//       $template_body_table_partes.querySelector(
-//         ".cantidad_fallas"
-//       ).textContent = aux;
-      
-      
-//       if (elemento.fecha_confirmado === null) {
-//         $template_body_table_partes.querySelector(
-//           ".agregar_falla_b"
-//         ).textContent = "No Confirmado";
-//         $template_body_table_partes.querySelector(
-//           ".agregar_falla_b"
-//         ).disabled = true;
-//         $template_body_table_partes.querySelector(
-//           ".agregar_falla_b"
-//         ).style.opacity = 0.5;
-//       } 
-//       if (elemento.fecha_rechequeado === null) {
-//          console.log(`${elemento.fecha_confirmado}  ${elemento.fecha_rechequeado}`);
-//         $template_body_table_partes.querySelector(
-//           ".agregar_falla_b"
-//         ).textContent = "No Rechequeado";
-//         $template_body_table_partes.querySelector(
-//           ".agregar_falla_b"
-//         ).disabled = true;
-//         $template_body_table_partes.querySelector(
-//           ".agregar_falla_b"
-//         ).style.opacity = 0.5;
-//       }
-
-//       $template_body_table_partes.querySelector(".agregar_falla_b").dataset.id =
-//         elemento.id;
-
-//       //guardamos una copia de la estrutura actual del template en la variable $node
-//       let $clone = $template_body_table_partes.cloneNode(true);
-
-//       //Guardamos el nodo en el fragment
-//       $fragment.append($clone);
-//     });
-
-    
-//     // //Limpiamos la lista
-//     $body_table_partes.innerHTML = "";
-//     //Insertamos el fragment en la lista
-//     $body_table_partes.append($fragment);
-//   } else {
-//     $body_table_partes.innerHTML = "";
-//   }
-// };
 
 
 const mostrar_datos_tabla_partes = async (data) => {
@@ -327,3 +241,27 @@ d.addEventListener("click", async (e) => {
     console.log("Problemas en el evento  de confirmar pedido p", error.message);
   }
 });
+
+
+let timeout ;
+d.addEventListener("mouseover", (e) => {
+ 
+ if (e.target.classList.contains("cantidad_fallas")) {
+  clearTimeout(timeout);
+  falla_modal.style.display = "block";
+  return ;
+ }
+});
+
+
+d.addEventListener("mouseout", (e) => {
+  
+  if (e.target.classList.contains("cantidad_fallas")) {
+    timeout = setTimeout(() => {
+      falla_modal.style.display = "none"; // Hide the element
+  }, 100); // Delay before hiding
+      
+     }
+ });
+
+ 
