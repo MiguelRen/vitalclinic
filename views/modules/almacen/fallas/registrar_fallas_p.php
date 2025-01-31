@@ -12,7 +12,7 @@ $acceso = $control_privilegios->verificar_privilegios($privilegio);
     ?>
     <div class="w-full mt-4">
         <div class="bg-blue-500 border-2 border-white rounded-md mb-4 w-fit px-4 mx-auto">
-            <h1 class="text-2xl font-bold text-white text-center">TERMINAR PEDIDO</h1>
+            <h1 class="text-2xl font-bold text-white text-center">Registrar Fallas P</h1>
         </div>
 
         <div class="w-96 flex flex-col justify-center items-center gap-y-1 w-full h-fit">
@@ -38,8 +38,7 @@ $acceso = $control_privilegios->verificar_privilegios($privilegio);
         <table id="table_2" class="w-full table-auto border-separate border border-slate-400">
             <thead>
                 <tr>
-                <th  class="border-2 border-black-500 text-white bg-gray-400">Pedido</th>
-                <th  class="border-2 border-black-500 text-white bg-gray-400">id_despachador</th>
+               
                     <th class="border-2 border-black-500 text-white bg-gray-400">N° Parte</th>
                     <th class="border-2 border-black-500 text-white bg-gray-400">Nombre</th>
                     <th class="border-2 border-black-500 text-white bg-gray-400">Apellido</th>
@@ -58,9 +57,7 @@ $acceso = $control_privilegios->verificar_privilegios($privilegio);
 
 <template id="template_body_table_partes">
     <tr class="tr hover:bg-gray-200">
-        <td class="num_pedido border-2 border-black-500 text-black text-center " ></td>
 
-        <td class="id_despachador    border-2 border-black-500 text-black text-center " ></td>
         <td class="num_parte border-2 border-black-500 text-black text-center"></td>
         <td class="nombre border-2 border-black-500 text-black text-center"></td>
         <td class="apellido border-2 border-black-500 text-black text-center"></td>
@@ -79,5 +76,5 @@ $acceso = $control_privilegios->verificar_privilegios($privilegio);
 <div>
 
     <script type="module" src="http://localhost/vitalclinic/views/assets/js/api.js"></script>
-    <script type="module" src="http://localhost/vitalclinic/views/assets/js/almacen/pedidos/confirmar_pedidos.js"
+    <script type="module" src="http://localhost/vitalclinic/views/assets/js/almacen/fallas/falla_pedidos_p.js"
         type="module"></script>
