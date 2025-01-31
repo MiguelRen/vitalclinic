@@ -231,7 +231,8 @@ class RechequearPedidoModel extends Connection
 
     public function consultar_pedido($numero_pedido = "")
     {
-
+session_start();
+        $user = $_SESSION['user']['id_account'];
         $data_tabla_pedidos = array();
         $data_tabla_pedidos_d_r_e = array();
 

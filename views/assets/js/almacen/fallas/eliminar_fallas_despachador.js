@@ -41,7 +41,7 @@ const mostrar_datos_tabla_fallas = async(data) => {
 
 const extraer_fallas = async (form_data) => {
     try {
-        const data_motivo_fallas = await app('http://192.168.0.164/vitalclinic/controllers/almacen/fallas/fallas_pedidos.php?extraer_fallas_despachador=1','POST', form_data);
+        const data_motivo_fallas = await app('http://localhost/vitalclinic/controllers/almacen/fallas/fallas_pedidos.php?extraer_fallas_despachador=1','POST', form_data);
         return data_motivo_fallas
     } catch (error) {
         throw error
@@ -50,7 +50,7 @@ const extraer_fallas = async (form_data) => {
 
 const extraer_datos_pedido = async(form_data) => {
     try {
-        const data_pedido = await app('http://192.168.0.164/vitalclinic/controllers/almacen/pedidos/pedidos.php?consultar_pedido=1','POST',form_data);
+        const data_pedido = await app('http://localhost/vitalclinic/controllers/almacen/pedidos/pedidos.php?consultar_pedido=1','POST',form_data);
         return data_pedido
     } catch (error) {
         throw error;
@@ -101,7 +101,7 @@ const ejecutar_peticiones = async(form_data) => {
 
 const eliminar_falla = async(form_data,id_falla) => {
     try {
-        const res = await app('http://192.168.0.164/vitalclinic/controllers/almacen/fallas/fallas_pedidos.php?eliminar_falla_despachador=1','POST', form_data);
+        const res = await app('http://localhost/vitalclinic/controllers/almacen/fallas/fallas_pedidos.php?eliminar_falla_despachador=1','POST', form_data);
         if(res.data.length > 0){
             const data_table_fallas_copy = [...data_table_fallas.data[0]];
 

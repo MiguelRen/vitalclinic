@@ -70,11 +70,13 @@ const formatDataSelect = (data) => {
             }
 
             dataFallas.push(object);
+            console.log(dataFallas);
+            
         })    
     }
 
     mostrar_despachadores(dataFallas);
-    mostrar_rechequeadores(dataFallas);
+    // mostrar_rechequeadores(dataFallas);
     
 }
 
@@ -96,20 +98,20 @@ const extraer_datos_pedido = async(form_data) => {
 
 
 
-  const mostrar_rechequeadores = async (data_rechequeadores) => {
-    //Mostramos los datos de los empleados
-    asignar_valores_select(
-        { 
-            data: data_rechequeadores,
-            titulo: "Seleccionar Rechequeadores",
-            input: $rechequeador,
-            nombre_opciones : {
-                id : "id",
-                nombre: "nombre"  
-            }
-        }
-    );
-};
+//   const mostrar_rechequeadores = async (data_rechequeadores) => {
+//     //Mostramos los datos de los empleados
+//     asignar_valores_select(
+//         { 
+//             data: data_rechequeadores,
+//             titulo: "Seleccionar Rechequeadores",
+//             input: $rechequeador,
+//             nombre_opciones : {
+//                 id : "id",
+//                 nombre: "nombre"  
+//             }
+//         }
+//     );
+// };
 
   
 d.addEventListener('DOMContentLoaded', async e => {

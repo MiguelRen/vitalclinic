@@ -71,5 +71,5 @@
     </tr>
 </template>
 
-<script src="http://localhost/vitalclinic/views/assets/js/api.js"></script>
-<script src="http://localhost/vitalclinic/views/assets/js/almacen/fallas/eliminar_fallas_despachador.js" type="module"></script>
+<script type="module" src="http://localhost/vitalclinic/views/assets/js/api.js"></script>
+<script type="module" src="http://localhost/vitalclinic/views/assets/js/almacen/fallas/eliminar_fallas_despachador.js" ></script>
