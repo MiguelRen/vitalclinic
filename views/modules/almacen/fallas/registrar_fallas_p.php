@@ -12,11 +12,7 @@ $acceso = $control_privilegios->verificar_privilegios($privilegio);
     ?>
     <div class="w-full mt-4">
         <div class="bg-blue-500 border-2 border-white rounded-md mb-4 w-fit px-4 mx-auto">
-<<<<<<< HEAD
-            <h1 class="text-2xl font-bold text-white text-center">Registrar Fallas P</h1>
-=======
             <h1 class="text-2xl font-bold text-white text-center">REGISTRAR FALLA P</h1>
->>>>>>> bd45aa5fcc734b5ed1130d8062900974615df928
         </div>
 
         <div class="w-96 flex flex-col justify-center items-center gap-y-1 w-full h-fit">
@@ -42,16 +38,6 @@ $acceso = $control_privilegios->verificar_privilegios($privilegio);
         <table id="table_2" class="w-full table-auto border-separate border border-slate-400">
             <thead>
                 <tr>
-<<<<<<< HEAD
-               
-                    <th class="border-2 border-black-500 text-white bg-gray-400">N° Parte</th>
-                    <th class="border-2 border-black-500 text-white bg-gray-400">Nombre</th>
-                    <th class="border-2 border-black-500 text-white bg-gray-400">Apellido</th>
-                    <th class="border-2 border-black-500 text-white bg-gray-400">Fecha Entregado</th>
-                    <th class="border-2 border-black-500 text-white bg-gray-400">Fecha Terminado</th>
-                    <th class="border-2 border-black-500 text-white bg-gray-400"></th>
-                  
-=======
                     <!-- <th  class="border-2 border-black-500 text-white bg-gray-400">Pedido</th>
                 <th  class="border-2 border-black-500 text-white bg-gray-400">id_despachador</th> -->
                     <th class="border-2 border-black-500 text-white bg-gray-400">N° Parte</th>
@@ -62,7 +48,6 @@ $acceso = $control_privilegios->verificar_privilegios($privilegio);
                     <th class="border-2 border-black-500 text-white bg-gray-400">Cant Fallas</th>
                     <th class="border-2 border-black-500 text-white bg-gray-400"></th>
 
->>>>>>> bd45aa5fcc734b5ed1130d8062900974615df928
                 </tr>
             </thead>
             <tbody id="body_table_partes"></tbody>
@@ -73,18 +58,6 @@ $acceso = $control_privilegios->verificar_privilegios($privilegio);
 
 
 <template id="template_body_table_partes">
-<<<<<<< HEAD
-    <tr class="tr hover:bg-gray-200">
-
-        <td class="num_parte border-2 border-black-500 text-black text-center"></td>
-        <td class="nombre border-2 border-black-500 text-black text-center"></td>
-        <td class="apellido border-2 border-black-500 text-black text-center"></td>
-        <td class="fecha_entregado border-2 border-black-500 text-black text-center"></td>
-        <td class="fecha_terminado border-2 border-black-500 text-black text-center"></td>
-        <td>
-            <button id="confirm_b"
-                class="confirm_b w-full border-2 border-gray-300 rounded-md px-6 py-2 mt-3 mb-2 font-extralight text-white text-base font-medium focus:outline-none cursor-pointer bg-blue-600">Confirmar</button>
-=======
     <tr class="tr hover:bg-gray-200 py-0">
         <!-- <td class="num_pedido border-2 border-black-500 text-black text-center " ></td>
 
@@ -94,22 +67,19 @@ $acceso = $control_privilegios->verificar_privilegios($privilegio);
         <td class="despachador border-2 border-black-500 text-black text-center py-0"></td>
         <td class="fecha_rechequeado border-2 border-black-500 text-black text-center py-0"></td>
         <td class="rechequeador border-2 border-black-500 text-black text-center py-0"></td>
-        <div class="blinking">
+        
             <td class="cantidad_fallas border-2 border-black-500 text-black text-center py-0"></td>
 
-        </div>
+       
         <td class="py-0">
             <button id="agregar_falla_b"
                 class="agregar_falla_b w-full border-2 border-gray-300 rounded-md px-2 py-2 mt-0 mb-0
                 font-extralight text-white text-base font-medium focus:outline-none cursor-pointer bg-blue-600">Agregar</button>
->>>>>>> bd45aa5fcc734b5ed1130d8062900974615df928
         </td>
     </tr>
 
 </template>
 
-<<<<<<< HEAD
-=======
 
 <div style="display: none;
     position: fixed;
@@ -209,15 +179,10 @@ $acceso = $control_privilegios->verificar_privilegios($privilegio);
 
 
 
->>>>>>> bd45aa5fcc734b5ed1130d8062900974615df928
 </div>
 </div>
 <div>
 
     <script type="module" src="http://localhost/vitalclinic/views/assets/js/api.js"></script>
-<<<<<<< HEAD
-    <script type="module" src="http://localhost/vitalclinic/views/assets/js/almacen/fallas/falla_pedidos_p.js"
-=======
     <script type="module" src="http://localhost/vitalclinic/views/assets/js/almacen/fallas/fallas_pedidos_p.js"
->>>>>>> bd45aa5fcc734b5ed1130d8062900974615df928
         type="module"></script>

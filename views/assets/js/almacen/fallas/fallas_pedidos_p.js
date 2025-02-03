@@ -257,6 +257,8 @@ d.addEventListener("mouseover", (e) => {
 d.addEventListener("mouseout", (e) => {
   
   if (e.target.classList.contains("cantidad_fallas")) {
+    console.log(e.target);
+    
     timeout = setTimeout(() => {
       falla_modal.style.display = "none"; // Hide the element
   }, 100); // Delay before hiding
