@@ -111,7 +111,7 @@ $acceso = $control_privilegios->verificar_privilegios($privilegio);
                 <select name="motivo" id="motivo"
                     class="w-full border-2 border-gray-300 rounded-md p-2 pt-2 my-1 font-extralight text-black-500 font-medium text-base focus:outline-none"></select>
             </label>
-buajajajajaj
+
             <label for="descripcion" class="w-full relative px-6">
                 <p class="text-white">Descripción</p>
                 <textarea name="descripcion" id="descripcion"
