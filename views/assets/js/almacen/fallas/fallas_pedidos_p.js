@@ -7,12 +7,12 @@ import utilidades from "../../utilidades.js";
 const { asignar_valores_select } = utilidades();
 const d = document;
 const $fragment = d.createDocumentFragment();
-const $fragment_motivos = d.createDocumentFragment();
+
 const $body_table_partes = d.querySelector("#body_table_partes");
 const $motivo = d.querySelector("#motivo");
 const modal = d.querySelector("#modal");
 const buscar_button = d.getElementById("buscar_b");
-const $falla_detalles = d.querySelector(".falla_detalles");
+
 
 
 
@@ -30,10 +30,6 @@ const mostrar_datos_tabla_partes = async (data) => {
   const $template_body_table_partes = d.querySelector(
     "#template_body_table_partes"
   ).content;
-  const $template_body_table_fallas_modal = d.querySelector(
-    "#template_body_table_fallas_modal"
-  ).content;
-
 
 
 
@@ -61,26 +57,6 @@ const mostrar_datos_tabla_partes = async (data) => {
       $clonado.querySelector(".fecha_rechequeado").textContent =
         elemento.fecha_rechequeado;
 
-        if (Object.keys(elemento["fallas"]).length > 0) {
-          const fallas = elemento["fallas"];
-        
-          
-          fallas.forEach((falla) => {
-          let $falla_tag = $clonado.querySelector(".fallita");
-
-          let $clonado_motivos = document.importNode(
-            $template_body_table_fallas_modal,
-            true
-          );
-          $clonado_motivos.querySelector(".motivo").textContent = falla.motivo;
-          $clonado_motivos.querySelector(".descripcion").textContent =
-          falla.descripcion;
-          console.log($clonado_motivos);
-          
-          $fragment_motivos.append($clonado_motivos);
-          $falla_tag.append($fragment_motivos);
-        });
-      }
 
       const falla_combo = elemento.fallas;
       const cantidadFallas = falla_combo.length; // Contar directamente la longitud del array
@@ -276,13 +252,3 @@ d.addEventListener("click", async (e) => {
   }
 });
 
-$body_table_partes.addEventListener("mouseover",(e)=>{
-  if (e.target.classList.contains("cantidad_fallas")) {
-          const detalles_tag = $body_table_partes.querySelector(".falla_detalles");
-          if (detalles_tag) {
-            console.log(detalles_tag);
-        } else {
-            console.log("No se encontró el elemento .falla_detalles");
-        }
-  }
-});
